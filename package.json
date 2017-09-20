@@ -14,8 +14,9 @@
     "url": "git+https://github.com/victorfomenko/cryptocalc.online.git"
   },
   "keywords": [
-    "Crypto",
-    "calculator"
+    "crypto",
+    "calculator",
+    "cryptocalculator"
   ],
   "author": "Victor Fomenko <victorfomenko@me.com> (http://github.com/victorfomenko)",
   "license": "ISC",
@@ -24,8 +25,9 @@
   },
   "homepage": "https://github.com/victorfomenko/cryptocalc.online#readme",
   "dependencies": {
-    "next": "^3.0.1-beta.21",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "material-ui": "next",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   }
 }
