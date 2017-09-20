@@ -1,0 +1,31 @@
+{
+  "name": "cryptocalc.online",
+  "version": "0.1.0",
+  "description": "Crypto calculator",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorfomenko/cryptocalc.online.git"
+  },
+  "keywords": [
+    "Crypto",
+    "calculator"
+  ],
+  "author": "Victor Fomenko <victorfomenko@me.com> (http://github.com/victorfomenko)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victorfomenko/cryptocalc.online/issues"
+  },
+  "homepage": "https://github.com/victorfomenko/cryptocalc.online#readme",
+  "dependencies": {
+    "next": "^3.0.1-beta.21",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
