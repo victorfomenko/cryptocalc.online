@@ -3,14 +3,10 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import JssProvider from 'react-jss/lib/JssProvider';
 import getContext from '../styles/getContext';
 
-//components
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
 class MyDocument extends Document {
     render() {
       return (
-      <html lang="en" dir="ltr">
+      <html lang="ru" dir="ltr">
         <Head>
           <meta name="viewport" content={
               'user-scalable=0, initial-scale=1, ' +
@@ -24,9 +20,7 @@ class MyDocument extends Document {
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
         </Head>
         <body>
-          <Header/>
           <Main />
-          <Footer/>
           <NextScript />
         </body>
       </html>

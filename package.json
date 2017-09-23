@@ -26,6 +26,7 @@
   "homepage": "https://github.com/victorfomenko/cryptocalc.online#readme",
   "dependencies": {
     "material-ui": "next",
+    "material-ui-icons": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

@@ -5,15 +5,21 @@ import { create } from 'jss';
 import preset from 'jss-preset-default';
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import { createMuiTheme } from 'material-ui/styles';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
+import lightBlue from 'material-ui/colors/lightBlue';
+import blueGrey from 'material-ui/colors/blueGrey';
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+
+import {light, dark, PRIMARY_COLOR, SECONDARY_COLOR} from './palette';
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
-    secondary: green,
+    primary: lightBlue,
+    secondary: blueGrey
   },
+  shades: {
+    light,
+    dark,
+  }
 });
 
 // Configure JSS
