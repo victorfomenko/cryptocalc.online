@@ -6,23 +6,22 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
-  layout: {
+  header: {
     width: '100%',
+    height: '100px'
   },
 });
 
 function Header(props) {
   const classes = props.classes;
   return (
-    <header className={classes.layout}>
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="primary" className={classes.header}>
         <Toolbar>
           <Typography type="title" color="inherit">
             Title
           </Typography>
         </Toolbar>
       </AppBar>
-    </header>
   );
 }
 

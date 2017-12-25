@@ -25,10 +25,17 @@
   },
   "homepage": "https://github.com/victorfomenko/cryptocalc.online#readme",
   "dependencies": {
+    "deepmerge": "^2.0.1",
+    "jss": "^9.4.0",
+    "jss-preset-default": "^4.0.1",
     "material-ui": "next",
     "material-ui-icons": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-jss": "^8.2.0",
+    "recompose": "^0.26.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   }
 }

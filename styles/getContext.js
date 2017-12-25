@@ -1,20 +1,17 @@
 // @flow weak
 /* eslint-disable no-underscore-dangle */
 
-import { create } from 'jss';
+import { create, SheetsRegistry } from 'jss';
 import preset from 'jss-preset-default';
-import { SheetsRegistry } from 'react-jss/lib/jss';
-import { createMuiTheme } from 'material-ui/styles';
-import lightBlue from 'material-ui/colors/lightBlue';
-import blueGrey from 'material-ui/colors/blueGrey';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
+import blue from 'material-ui/colors/blue';
 
-import {light, dark, PRIMARY_COLOR, SECONDARY_COLOR} from './palette';
+import {light, dark, primary} from './palette';
 
 const theme = createMuiTheme({
   palette: {
-    primary: lightBlue,
-    secondary: blueGrey
+    primary,
+    secondary: blue
   },
   shades: {
     light,
@@ -24,7 +21,6 @@ const theme = createMuiTheme({
 
 // Configure JSS
 const jss = create(preset());
-jss.options.createGenerateClassName = createGenerateClassName;
 
 function createContext() {
   return {
@@ -34,6 +30,7 @@ function createContext() {
     sheetsManager: new Map(),
     // This is needed in order to inject the critical CSS.
     sheetsRegistry: new SheetsRegistry(),
+    generateClassName: createGenerateClassName(),
   };
 }
 

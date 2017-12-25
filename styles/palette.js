@@ -5,15 +5,28 @@ import deepmerge from 'deepmerge';
 import grey from 'material-ui/colors/grey'
 import common from 'material-ui/colors/common'
 
-
-export const PRIMARY_COLOR =         'rgba(64, 110, 142, 0)';
-export const SECONDARY_COLOR =       'rgba(142, 168, 195, 0)';
-
+export const primary = {
+  50: '#c2c3cc',
+  100: '#b2b3be',
+  200: '#999ba8',
+  300: '#808291',
+  400: '#68697b',
+  500: '#4f5165',
+  600: '#3f4050',
+  700: '#2f303c',
+  800: '#1f2028',
+  900: '#0f1014',
+  A100: '#acafce',
+  A200: '#8b8faa',
+  A400: '#61637e',
+  A700: '#2e2f42',
+  contrastDefaultColor: 'light',
+}
 
 export const light = {
   text: {
-    primary: 'rgba(22, 25, 37, 0)',
-    secondary: 'rgba(79, 81, 101, 0)',
+    primary: 'rgba(0, 0, 0, 0.87)',
+    secondary: 'rgba(0, 0, 0, 0.54)',
     disabled: 'rgba(0, 0, 0, 0.38)',
     hint: 'rgba(0, 0, 0, 0.38)',
     icon: 'rgba(0, 0, 0, 0.38)',

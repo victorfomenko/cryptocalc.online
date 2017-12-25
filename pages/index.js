@@ -17,9 +17,16 @@ class Index extends Component {
   render() {
     return (
       <div className={this.props.classes.root}>
-        {/* <Header/> */}
         <Typography type="display1" gutterBottom>
-          Crypto calculator
+          Crypto calculator<br/>
+          1<br/>
+          2<br/>
+          2<br/>
+          2<br/>
+          2<br/>
+          2<br/>
+          2<br/>
+          2<br/>
         </Typography>
       </div>
     );
