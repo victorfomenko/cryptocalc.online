@@ -1,6 +1,6 @@
 # cryptocalc.online
 
-### run service
+### How to run app?
 `npm -i`
 
 `npm run build`
