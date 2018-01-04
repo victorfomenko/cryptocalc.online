@@ -5,16 +5,11 @@ import Link from 'next/link'
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import withStyles from 'material-ui/styles/withStyles';
+import TextField from 'material-ui/TextField';
 import Card from '../components/Card';
 import withRoot from '../components/WithRoot';
 import initStore from '../config/store'
 import * as currenciesDux from '../dux/currencies/currenciesDux'
-
-const styles = {
-  root: {
-    textAlign: 'center',
-  },
-};
 
 class Index extends React.PureComponent {
   static async getInitialProps({ store, ...props }){
@@ -24,9 +19,20 @@ class Index extends React.PureComponent {
   }
 
   render() {
-    const { classes, currencies } = this.props;
+    const { classes } = this.props;
+    const { currencies } = this.state;
     return (
       <div className={classes.root}>
+      <div>
+      <TextField
+        id="search"
+        label="Find crypto"
+        type="search"
+        className={classes.search}
+        margin="normal"
+        onChange={this.handleSearch}
+      />
+      </div>
       {currencies.map( (currency) => {
         return (
           <Card key={currency.ticker}
@@ -40,10 +46,34 @@ class Index extends React.PureComponent {
       </div>
     );
   }
+
+  state = {
+    currencies: []
+  }
+
+  componentDidMount(){
+    this.setState({ currencies: this.props.currencies })
+  }
+
+  handleSearch = ({ target }) => {
+    const currencies = this.props.currencies.filter(item => 
+      item.name.toLowerCase().indexOf(target.value.toLowerCase()) !== -1
+    )
+    this.setState({ currencies })
+  }
 }
 
 Index.propTypes = {
   classes: PropTypes.object.isRequired,
+};
+
+const styles = {
+  root: {
+    textAlign: 'center',
+  },
+  search: {
+    width: '50%'
+  }
 };
 
 const mapDispatchToProps = (state) => ({

@@ -21,8 +21,9 @@ class Card extends React.PureComponent {
   render(){
     const { href, bg, numbers: { bid, ask, ytd_return }, btnIcon, title, type, classes } = this.props;
     const price = numeral((bid + ask)/2).format('$0,0.00');
-    const priceChange = numeral(ytd_return/100).format('0.00%');
-    
+    const priceChange = numeral(ytd_return).format('0.00');
+    const isPositive = priceChange > 0;
+
     return (
     <Paper className={classes.card}>
       <Link href={href}>
@@ -43,7 +44,9 @@ class Card extends React.PureComponent {
                 </div>
                 <div className={classes.value}>
                     <span className={classes.valueCurrent}>{price}</span>
-                    <span className={classes.valueChange}> {priceChange > 0 ? '+': ''}{priceChange} <span>YTD</span></span>
+                    <span className={`${classes.valueChange} ${isPositive ? classes.valueChangePositive : classes.valueChangeNegative}`}>
+                        &nbsp;{isPositive ? '+': ''}{priceChange}% <span>YTD</span>
+                    </span>
                 </div>
                 {/* <div className={classes.graph}>
                     <div className={classes.graphItem}>
@@ -175,6 +178,12 @@ const styles = (theme, ...args) => ({
   },
   valueChange: {
     display: 'inline-block'
+  },
+  valueChangePositive: {
+      color: '#35a947',
+  },
+  valueChangeNegative: {
+      color: '#e34828',
   },
   graph: {
     display: 'flex',

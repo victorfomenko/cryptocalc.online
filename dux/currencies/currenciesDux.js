@@ -21,7 +21,14 @@ const error = createAction('error');
 // Async actions
 export const loadCurrencies = () => async (dispatch) => {
     dispatch(loading());
-    const data = await api.getCurrencies({where: {ticker: {in: ['BTC', 'ETH', 'LTC']}}, candles: 'q1'})
+    const data = await api.getCurrencies({
+      where: {
+        ticker: {
+          in: ['BTC', 'ETH', 'LTC', 'ETC', 'OMG', 'BCH', 'MIOTA', 'XMR', 'ZEC', 'SAN', 'DASH']
+        }
+      }, 
+      candles: 'q1'
+    })
     dispatch(success({ data }));
 }
 
