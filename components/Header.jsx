@@ -8,17 +8,16 @@ import Typography from 'material-ui/Typography';
 const styles = theme => ({
   header: {
     width: '100%',
-    height: '100px'
   },
 });
 
 function Header(props) {
-  const classes = props.classes;
+  const { classes } = props;
   return (
       <AppBar position="static" color="primary" className={classes.header}>
         <Toolbar>
           <Typography type="title" color="inherit">
-            Title
+            Crypto calc
           </Typography>
         </Toolbar>
       </AppBar>
