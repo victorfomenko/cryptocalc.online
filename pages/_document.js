@@ -12,12 +12,12 @@ class MyDocument extends Document {
               'user-scalable=0, initial-scale=1, ' +
               'minimum-scale=1, width=device-width, height=device-height'
             } />
-          <link rel="shortcut icon" href="/static/favicon.ico?v=3" />
+          <link rel="shortcut icon" href="/static/favicon.ico?v=1" />
           <title>{'Crypto calculator'}</title>
           <meta name="author" content="Victor Fomenko"/>
           <meta name="keywords" content="Крипто калькулятор"/>
           <meta name="description" content="Крипто калькулятор"/>
-          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+          <link rel="stylesheet" href="/static/css/global.css" />
         </Head>
         <body>
           <Main />

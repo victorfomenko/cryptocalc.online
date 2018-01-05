@@ -5,17 +5,17 @@ import withStyles from 'material-ui/styles/withStyles';
 import withRoot from '../../components/WithRoot';
 import initStore from '../../config/store'
 
+// Components
+import Typography from 'material-ui/Typography';
+
 const styles = {
-  root: {
-    textAlign: 'center',
-  },
 };
 
 class ETH extends React.PureComponent {
   render() {
     return (
-      <div className={this.props.classes.root}>
-        eth
+      <div>
+        <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
       </div>
     );
   }
@@ -25,10 +25,8 @@ ETH.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-  }
-}
+const mapDispatchToProps = (state) => ({
+})
 
 const WithRedux = withRedux(initStore, null, mapDispatchToProps)(ETH);
 export default withRoot(withStyles(styles)(WithRedux));

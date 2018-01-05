@@ -6,7 +6,7 @@ import preset from 'jss-preset-default';
 import { createMuiTheme, createGenerateClassName } from 'material-ui/styles';
 import blue from 'material-ui/colors/blue';
 
-import {light, dark, primary} from './palette';
+import { light, dark, primary, typography } from './palette';
 
 const theme = createMuiTheme({
   palette: {
@@ -16,7 +16,8 @@ const theme = createMuiTheme({
   shades: {
     light,
     dark,
-  }
+  },
+  typography,
 });
 
 // Configure JSS

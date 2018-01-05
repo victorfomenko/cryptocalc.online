@@ -24,10 +24,11 @@ export const loadCurrencies = () => async (dispatch) => {
     const data = await api.getCurrencies({
       where: {
         ticker: {
-          in: ['BTC', 'ETH', 'LTC', 'ETC', 'OMG', 'BCH', 'MIOTA', 'XMR', 'ZEC', 'SAN', 'DASH']
+          in: ['BTC', 'ETH', 'LTC', 'ETC', 'OMG', 'BCH', 'MIOTA', 'XMR', 'ZEC', 'SAN', 'DASH', 'PASC']
         }
       }, 
-      candles: 'q1'
+      candles: 'q1',
+      offset: 0
     })
     dispatch(success({ data }));
 }

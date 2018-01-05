@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 import Button from 'material-ui/Button';
+import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import withStyles from 'material-ui/styles/withStyles';
 import TextField from 'material-ui/TextField';
@@ -22,27 +23,30 @@ class Index extends React.PureComponent {
     const { classes } = this.props;
     const { currencies } = this.state;
     return (
-      <div className={classes.root}>
       <div>
-      <TextField
-        id="search"
-        label="Find crypto"
-        type="search"
-        className={classes.search}
-        margin="normal"
-        onChange={this.handleSearch}
-      />
-      </div>
-      {currencies.map( (currency) => {
-        return (
-          <Card key={currency.ticker}
-              href={`crypto/${currency.ticker.toLowerCase()}`}
-              title={currency.name}
-              numbers={currency.key_numbers}
-              bg={currency.media.filter(item => item.type === 'site_background')[0].url}
-              btnIcon={currency.background}
-        />)
-      })}
+        <Typography type="display1" gutterBottom>Майнинг-калькуляторы криптовалют</Typography>
+        <TextField
+          id="search"
+          label="Введите название крипто-валюты для фильтрации"
+          type="search"
+          className={classes.search}
+          margin="normal"
+          onChange={this.handleSearch}
+        />
+        <Grid container spacing={40}>
+          {currencies.map( (currency) => {
+            return (
+              <Grid key={currency.ticker} item>
+                <Card href={`crypto/${currency.ticker.toLowerCase()}`}
+                      title={currency.name}
+                      numbers={currency.key_numbers}
+                      bg={currency.media.filter(item => item.type === 'site_background')[0].url}
+                      btnIcon={currency.background}
+                />
+              </Grid>
+            )
+          })}
+        </Grid>
       </div>
     );
   }
@@ -68,11 +72,9 @@ Index.propTypes = {
 };
 
 const styles = {
-  root: {
-    textAlign: 'center',
-  },
   search: {
-    width: '50%'
+    width: '520px',
+    marginBottom: '30px'
   }
 };
 

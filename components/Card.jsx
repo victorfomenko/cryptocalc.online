@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import Paper from 'material-ui/Paper'
+import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles';
 import numeral from 'numeral';
 
@@ -39,15 +40,15 @@ class Card extends React.PureComponent {
                 </div>
             </div>
             <div className={classes.footer}>
-                <div className={classes.title}>
+                <Typography className={classes.title}>
                     <span>{title}</span>
-                </div>
-                <div className={classes.value}>
+                </Typography>
+                <Typography className={classes.value}>
                     <span className={classes.valueCurrent}>{price}</span>
                     <span className={`${classes.valueChange} ${isPositive ? classes.valueChangePositive : classes.valueChangeNegative}`}>
                         &nbsp;{isPositive ? '+': ''}{priceChange}% <span>YTD</span>
                     </span>
-                </div>
+                </Typography>
                 {/* <div className={classes.graph}>
                     <div className={classes.graphItem}>
                         <svg width="110" height="57">
@@ -82,7 +83,6 @@ class Card extends React.PureComponent {
 
 const styles = (theme, ...args) => ({
   card: {
-    margin: '16px 12px',
     display: 'inline-block',
     width: '240px',
     position: 'relative',

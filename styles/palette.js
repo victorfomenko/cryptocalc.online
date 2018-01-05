@@ -81,3 +81,7 @@ export const dark = {
     status: common.black,
   },
 };
+
+export const typography = {
+  fontFamily: 'Montserrat, Rubik, sans-serif',
+}
