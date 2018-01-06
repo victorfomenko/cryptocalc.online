@@ -1,23 +1,31 @@
-const { createServer } = require('http')
-const { parse } = require('url')
-const next = require('next')
+const express = require('express');
 
+const { parse } = require('url');
+const next = require('next');
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.SERVER_PORT || 3000
 const app = next({ dev })
 const handle = app.getRequestHandler()
+const proxyOptions = require('./config/proxy');
 
 app.prepare().then(() => {
-  createServer((req, res) => {
-    // Be sure to pass `true` as the second argument to `url.parse`.
-    // This tells it to parse the query portion of the URL.
-    const parsedUrl = parse(req.url, true)
-    const { pathname, query } = parsedUrl
+  const server = express();
 
-    handle(req, res, parsedUrl)
-  })
-  .listen(port, (err) => {
+  if(proxyOptions){
+    const proxy = require('http-proxy-middleware');
+    Object.keys(proxyOptions).forEach(function (context) {
+      server.use(proxy(context, proxyOptions[context]))
+    })
+  }
+
+  // default routing
+  server.all('*', (req, res) => handle(req, res))
+
+  server.listen(port, (err) => {
     if (err) throw err
     console.log(`> Ready on http://localhost:${port}`)
   })
-})
+}).catch(err => {
+    console.log('An error occurred, unable to start the server')
+    console.log(err)
+  })

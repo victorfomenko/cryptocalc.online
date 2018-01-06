@@ -10,12 +10,12 @@ import TextField from 'material-ui/TextField';
 import Card from '../components/Card';
 import withRoot from '../components/WithRoot';
 import initStore from '../config/store'
-import * as currenciesDux from '../dux/currencies/currenciesDux'
+import * as coinsDux from '../dux/coins/coinsDux'
 
 class Index extends React.PureComponent {
-  static async getInitialProps({ store, ...props }){
-    await store.dispatch(currenciesDux.loadCurrencies())
-    const currencies = currenciesDux.currenciesSelector(store.getState())
+  static async getInitialProps({ store }){
+    await store.dispatch(coinsDux.loadCurrencies())
+    const currencies = coinsDux.currenciesSelector(store.getState())
     return { currencies }
   }
 
@@ -27,7 +27,7 @@ class Index extends React.PureComponent {
         <Typography type="display1" gutterBottom>Майнинг-калькуляторы криптовалют</Typography>
         <TextField
           id="search"
-          label="Введите название крипто-валюты для фильтрации"
+          label="Введите название крипто-валюты для поиска"
           type="search"
           className={classes.search}
           margin="normal"
@@ -37,7 +37,7 @@ class Index extends React.PureComponent {
           {currencies.map( (currency) => {
             return (
               <Grid key={currency.ticker} item>
-                <Card href={`crypto/${currency.ticker.toLowerCase()}`}
+                <Card href={`/calculators/${currency.ticker.toLowerCase()}`}
                       title={currency.name}
                       numbers={currency.key_numbers}
                       bg={currency.media.filter(item => item.type === 'site_background')[0].url}
@@ -79,7 +79,7 @@ const styles = {
 };
 
 const mapDispatchToProps = (state) => ({
-  // currencies: currenciesDux.currenciesSelector(state)
+  // currencies: coinsDux.currenciesSelector(state)
 })
 
 const WithRedux = withRedux(initStore, null, mapDispatchToProps )(Index);

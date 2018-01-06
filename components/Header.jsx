@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link'
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -13,6 +14,10 @@ const styles = theme => ({
   },
   container: {
     margin: '0 auto'
+  },
+  logo: {
+    textDecoration: 'none',
+    color: 'inherit'
   }
 });
 
@@ -24,7 +29,9 @@ function Header(props) {
           <Grid item xs={10} className={classes.container}>
             <Toolbar>
               <Typography type="title" color="inherit">
-                Crypto calc
+                <Link href='/'>
+                  <a className={classes.logo}>Crypto calc</a>
+                </Link>
               </Typography>
             </Toolbar>
           </Grid>

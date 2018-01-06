@@ -1,9 +1,9 @@
 import { createAction, createReducer, disbatch } from 'redux-act';
 import { createSelector } from 'reselect';
-import api from './currenciesApi';
+import api from './coinsApi';
 
 // Selectors
-const duxSelector = state => state.currencies;
+const duxSelector = state => state.coins;
 
 export const loadingSelector = createSelector(
   duxSelector,
