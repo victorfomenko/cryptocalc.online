@@ -31,6 +31,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jss": "^9.4.0",
     "jss-preset-default": "^4.0.1",
+    "lodash": "^4.17.4",
     "material-ui": "next",
     "material-ui-icons": "latest",
     "next": "canary",

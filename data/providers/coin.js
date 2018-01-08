@@ -1,10 +1,8 @@
-import fetch from '../../data/fetch'
-import { stringify } from 'qs';
-const apiHost = process.env.API_HOST || ''; // by default host from request
+import { get as restGET } from '../../data/rest'
 
-export const get = async (coinId, headers) => {
-    const fullPath = `${apiHost}/api/coins/${coinId}.json`;
-    return await fetch('GET', fullPath, null, headers)
+export const get = async (path = '', query={}, headers) => {
+    const fullPath = `/api/coins/${path}`;
+    return await restGET(fullPath, query,  headers)
 }
 
 export default {
