@@ -22,23 +22,31 @@ import { calcMiningReward } from '../../utils/math';
 class ETH extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
+    coin: PropTypes.shape({
+      difficulty24: PropTypes.number.isRequired,
+      block_reward: PropTypes.number.isRequired,
+    }).isRequired,
+    params: PropTypes.shape({
+      hashRate: PropTypes.number.isRequired,
+    })
   };
 
-  static async getInitialProps({ store }){
-    await store.dispatch(coinDux.loadCoin(151))
+  static async getInitialProps({ store, req }){
+    await store.dispatch(coinDux.loadCoin(req, 151))
     const coin = coinDux.coinSelector(store.getState())
     return { coin }
   };
 
   render() {
     const { coin: { difficulty24, block_reward } , params: { hashRate }, classes } = this.props;
+    console.log(hashRate)
     return (
       <div>
         <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
         <FormControl className={classes.formControl}>
           <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
           <div className={classes.formInputWrapper}>
-            <Input id="hashingPower" value={hashRate ? hashRate: ''}  onChange={this.handleHashRateChange} />
+            <Input id="hashingPower" value={hashRate}  onChange={this.handleHashRateChange} />
             <Typography className={classes.formHashUnit}>MH/s</Typography>
           </div>
         </FormControl>
@@ -55,7 +63,7 @@ class ETH extends React.PureComponent {
   }
 
   handleHashRateChange = ({ target }) => {
-    this.props.onChangeParams({ hashRate: target.value })
+    this.props.onChangeParams(getNextHashRate( target.value ))
   }
 }
 

@@ -13,8 +13,8 @@ import initStore from '../config/store'
 import * as coinsDux from '../dux/coins/coinsDux'
 
 class Index extends React.PureComponent {
-  static async getInitialProps({ store }){
-    await store.dispatch(coinsDux.loadCurrencies())
+  static async getInitialProps({ store, req }){
+    await store.dispatch(coinsDux.loadCurrencies(req))
     const currencies = coinsDux.currenciesSelector(store.getState())
     return { currencies }
   }

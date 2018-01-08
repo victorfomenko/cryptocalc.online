@@ -1,8 +1,8 @@
 import { get as restGET } from '../../data/rest'
 
-export const get = async (path = '', query={}, headers) => {
-    const fullPath = `/api/coins/${path}`;
-    return await restGET(fullPath, query,  headers)
+export const get = async (req, path = '', query={}, headers) => {
+    const baseUrl = req ? `${req.protocol}://${req.headers.host}` : '';
+    return await restGET(`${baseUrl}/api/coins/${path}`, query,  headers)
 }
 
 export default {
