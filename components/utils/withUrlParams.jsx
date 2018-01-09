@@ -112,7 +112,7 @@ const formatBooleans = memoize(([key, value]) => {
 
 const getFormattedParams = memoize(params =>
   Object.entries(params)
-    .map(formatNumbers)
+    // .map(formatNumbers)
     .map(formatBooleans)
     .reduce((res, [key, value]) => {
       res[key] = value;
