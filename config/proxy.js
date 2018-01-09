@@ -8,4 +8,9 @@ module.exports = {
         pathRewrite: {'^/api/coins': '/coins'},
         changeOrigin: true,
     },
+    '/api/bitfinex': {
+        target: 'https://api.bitfinex.com/v1',
+        pathRewrite: {'^/api/bitfinex': ''},
+        changeOrigin: true,
+    },
 }

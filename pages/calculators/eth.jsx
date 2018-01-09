@@ -25,6 +25,7 @@ class ETH extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
     coin: PropTypes.shape({
+      mid: PropTypes.number.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
     }).isRequired,
@@ -42,7 +43,7 @@ class ETH extends React.PureComponent {
   render() {
     const { 
       coin: { 
-        price,
+        mid: price,
         difficulty24, 
         block_reward 
       } , 
@@ -53,7 +54,7 @@ class ETH extends React.PureComponent {
       }, 
       classes 
     } = this.props;
-    console.log(this.props.coin);
+    const dayReward = calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400, block_reward);
     return (
       <div>
         <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
@@ -64,6 +65,7 @@ class ETH extends React.PureComponent {
               <Input 
                 id="price" 
                 value={price}
+                disabled
                 endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$</InputAdornment>}
               />
             </FormControl>
@@ -97,12 +99,19 @@ class ETH extends React.PureComponent {
           </Grid>
           <Grid item xs={8}>
             <Typography style={{overflowWrap: 'break-word'}}>
-              hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
-              difficulty: {numeral(difficulty24).format('0,0.000')} hash/s<br/>
-              day: {calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400, block_reward)} ETH<br/>
-              7days: {calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400*7, block_reward)} ETH<br/>
-              month: {calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400*30, block_reward)} ETH<br/>
-              year: {calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400*365, block_reward)} ETH<br/>
+              {/* hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
+              difficulty: {numeral(difficulty24).format('0,0.000')} hash/s<br/> */}
+              day: {numeral(dayReward).format('0.000000')} ETH<br/>
+              7days: {numeral(dayReward*7).format('0.000000')} ETH<br/>
+              month: {numeral(dayReward*30).format('0.000000')} ETH<br/>
+              year: {numeral(dayReward*365).format('0.000000')} ETH<br/>
+            </Typography>
+            <br/>
+            <Typography style={{overflowWrap: 'break-word'}}>
+              day: {numeral(dayReward*price).format('$0,0.00')}<br/>
+              7days: {numeral(dayReward*7*price).format('$0,0.00')}<br/>
+              month: {numeral(dayReward*30*price).format('$0,0.00')}<br/>
+              year: {numeral(dayReward*365*price).format('$0,0.00')}<br/>
             </Typography>
           </Grid>
         </Grid>
