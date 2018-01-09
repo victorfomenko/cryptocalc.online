@@ -40,20 +40,40 @@ class ETH extends React.PureComponent {
   };
 
   render() {
-    const { coin: { difficulty24, block_reward } , params: { hashRate=84, power=0, powerCost=0 }, classes } = this.props;
-    console.log({ hashRate })
+    const { 
+      coin: { 
+        price,
+        difficulty24, 
+        block_reward 
+      } , 
+      params: { 
+        hashRate=84, 
+        power=0, 
+        powerCost=0 
+      }, 
+      classes 
+    } = this.props;
+    console.log(this.props.coin);
     return (
       <div>
         <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
         <Grid container>
           <Grid item xs={4}>
             <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="price">Price</InputLabel>
+              <Input 
+                id="price" 
+                value={price}
+                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$</InputAdornment>}
+              />
+            </FormControl>
+            <FormControl className={classes.formControl}>
               <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
               <Input 
                 id="hashingPower" 
                 value={hashRate} 
                 onChange={this.handleHashRateChange} 
-                endAdornment={<InputAdornment position="end">MH/s</InputAdornment>}
+                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>MH/s</InputAdornment>}
               />
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -62,7 +82,7 @@ class ETH extends React.PureComponent {
                 id="power" 
                 value={power} 
                 onChange={this.handlePowerChange} 
-                endAdornment={<InputAdornment position="end">W</InputAdornment>}
+                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>W</InputAdornment>}
               />
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -71,7 +91,7 @@ class ETH extends React.PureComponent {
                 id="powerCost" 
                 value={powerCost} 
                 onChange={this.handlePowerCostChange} 
-                endAdornment={<InputAdornment position="end">$/kWh</InputAdornment>}
+                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$/kWh</InputAdornment>}
               />
             </FormControl>
           </Grid>
@@ -110,19 +130,14 @@ class ETH extends React.PureComponent {
     })
   }
 }
-
-const getNextHashRate = memoize(query => query.length < 1 ? {} : { hashRate: query });
-
 const styles = {
   formControl: {
     width: '100%',
     marginBottom: '20px'
   },
-  // formInputWrapper: {
-  //   display: 'flex',
-  //   alignItems: 'stretch',
-  //   marginTop: '16px',
-  // },
+  formAdornment:{
+    whiteSpace: 'nowrap'
+  }
 };
 
 ETH.propTypes = {
