@@ -46,7 +46,7 @@ class BTC extends React.PureComponent {
         block_reward 
       } , 
       params: { 
-        hashRate=14000000, 
+        hashRate=14000, 
         power=0, 
         powerCost=0 
       }, 
@@ -59,6 +59,7 @@ class BTC extends React.PureComponent {
         <Calculator 
           tag={tag}
           price={price} 
+          hashUnit='GH'
           difficulty={difficulty24*Math.pow(2,32)} 
           blockReward={block_reward}
           hashRate={hashRate}

@@ -12,6 +12,13 @@ import Grid from 'material-ui/Grid';
 import numeral from 'numeral';
 import { calcMiningReward } from '../utils/math';
 
+const HASH_RATE_MULTIPLIER = {
+  'MH': 1,
+  'MH': Math.pow(10, 6),
+  'GH': Math.pow(10, 9),
+  'TH': Math.pow(10, 12),
+}
+
 class Calculator extends React.PureComponent {
   static propTypes = {
     tag: PropTypes.string.isRequired,
@@ -36,8 +43,8 @@ class Calculator extends React.PureComponent {
   }
 
   render(){
-    const { tag, price, difficulty, blockReward, hashRate, power, powerCost, classes } = this.props;
-    const dayReward = calcMiningReward(difficulty, hashRate*Math.pow(10, 6), 86400, blockReward);
+    const { tag, price, difficulty, blockReward, hashRate, power, powerCost, hashUnit, classes } = this.props;
+    const dayReward = calcMiningReward(difficulty, hashRate*HASH_RATE_MULTIPLIER[hashUnit], 86400, blockReward);
     const cost = power*Math.pow(10, -3)*powerCost * 24;
     const dayProfit = (dayReward*price)-cost;
 
@@ -59,7 +66,7 @@ class Calculator extends React.PureComponent {
               id="hashingPower" 
               value={hashRate} 
               onChange={this.handleHashRateChange} 
-              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>MH/s</InputAdornment>}
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>{hashUnit}/s</InputAdornment>}
             />
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -83,7 +90,7 @@ class Calculator extends React.PureComponent {
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography style={{overflowWrap: 'break-word'}}>
-            hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
+            hashpower: {hashRate*HASH_RATE_MULTIPLIER[hashUnit]} hash/s<br/>
             difficulty: {numeral(difficulty).format('0,0.000')} hash/s<br/>
             day: {numeral(dayReward).format('0.000000')} {tag}<br/>
             7days: {numeral(dayReward*7).format('0.000000')} {tag}<br/>
