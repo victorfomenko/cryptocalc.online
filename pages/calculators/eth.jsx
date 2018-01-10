@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper'
 import { withRouter } from 'next/router';
-import withStyles from 'material-ui/styles/withStyles';
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
@@ -19,13 +18,16 @@ class ETH extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
     coin: PropTypes.shape({
-      mid: PropTypes.number.isRequired,
+      tag: PropTypes.string.isRequired,
+      mid: PropTypes.string.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
     }).isRequired,
     params: PropTypes.shape({
-      hashRate: PropTypes.number.isRequired,
-    })
+      hashRate: PropTypes.string,
+      power: PropTypes.string,
+      powerCost: PropTypes.string,
+    }).isRequired,
   };
 
   static async getInitialProps({ store, req }){
@@ -89,18 +91,11 @@ class ETH extends React.PureComponent {
   }
 }
 
-ETH.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = {
-};
-
 const mapDispatchToProps = (state) => ({
 })
 
 const WithRedux = withRedux(initStore, null, mapDispatchToProps)(
-  withUrlParams(ETH, { defaultParams: { hashRate: 84000000 } })
+  withUrlParams(ETH, { defaultParams: { hashRate: 84 } })
 );
 
-export default withRoot(withStyles(styles)(WithRedux));
+export default withRoot(WithRedux);

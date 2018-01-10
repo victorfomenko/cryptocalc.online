@@ -32,7 +32,6 @@ class Calculator extends React.PureComponent {
 
   render(){
     const { tag, price, difficulty, blockReward, hashRate, power, powerCost, classes } = this.props;
-
     const dayReward = calcMiningReward(difficulty, hashRate*Math.pow(10, 6), 86400, blockReward);
     const cost = power*Math.pow(10, -3)*powerCost * 24;
     const dayProfit = (dayReward*price)-cost;
