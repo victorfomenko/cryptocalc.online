@@ -21,6 +21,7 @@ class Calculator extends React.PureComponent {
     hashRate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     power: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     powerCost: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    hashUnit: PropTypes.oneOf(['TH', 'GH', 'MH', 'H']),
     onHashRateChange: PropTypes.func.isRequired,
     onPowerChange: PropTypes.func.isRequired,
     onPowerCostChange: PropTypes.func.isRequired,
@@ -30,6 +31,10 @@ class Calculator extends React.PureComponent {
     }).isRequired,
   }
 
+  static defaultProps = {
+    hashUnit: 'MH',
+  }
+
   render(){
     const { tag, price, difficulty, blockReward, hashRate, power, powerCost, classes } = this.props;
     const dayReward = calcMiningReward(difficulty, hashRate*Math.pow(10, 6), 86400, blockReward);
@@ -37,66 +42,63 @@ class Calculator extends React.PureComponent {
     const dayProfit = (dayReward*price)-cost;
 
     return (
-      <div>
-        <Typography type="display1" gutterBottom>{tag}erium майнинг-калькулятор</Typography>
-        <Grid container>
-          <Grid item xs={12} sm={4}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="price">Price</InputLabel>
-              <Input 
-                id="price" 
-                value={price}
-                disabled
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
-              <Input 
-                id="hashingPower" 
-                value={hashRate} 
-                onChange={this.handleHashRateChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>MH/s</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="power">Power</InputLabel>
-              <Input 
-                id="power" 
-                value={power} 
-                onChange={this.handlePowerChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>W</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="powerCost">Power cost</InputLabel>
-              <Input 
-                id="powerCost" 
-                value={powerCost} 
-                onChange={this.handlePowerCostChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$/kWh</InputAdornment>}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <Typography style={{overflowWrap: 'break-word'}}>
-              {/* hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
-              difficulty: {numeral(difficulty24).format('0,0.000')} hash/s<br/> */}
-              day: {numeral(dayReward).format('0.000000')} {tag}<br/>
-              7days: {numeral(dayReward*7).format('0.000000')} {tag}<br/>
-              month: {numeral(dayReward*30).format('0.000000')} {tag}<br/>
-              year: {numeral(dayReward*365).format('0.000000')} {tag}<br/>
-            </Typography>
-            <br/>
-            <Typography style={{overflowWrap: 'break-word'}}>
-              day: {numeral(dayProfit).format('$0,0.00')}<br/>
-              7days: {numeral(dayProfit*7).format('$0,0.00')}<br/>
-              month: {numeral(dayProfit*30).format('$0,0.00')}<br/>
-              year: {numeral(dayProfit*365).format('$0,0.00')}<br/>
-            </Typography>
-          </Grid>
+      <Grid container>
+        <Grid item xs={12} sm={4}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="price">Price</InputLabel>
+            <Input 
+              id="price" 
+              value={price}
+              disabled
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$</InputAdornment>}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
+            <Input 
+              id="hashingPower" 
+              value={hashRate} 
+              onChange={this.handleHashRateChange} 
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>MH/s</InputAdornment>}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="power">Power</InputLabel>
+            <Input 
+              id="power" 
+              value={power} 
+              onChange={this.handlePowerChange} 
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>W</InputAdornment>}
+            />
+          </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="powerCost">Power cost</InputLabel>
+            <Input 
+              id="powerCost" 
+              value={powerCost} 
+              onChange={this.handlePowerCostChange} 
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$/kWh</InputAdornment>}
+            />
+          </FormControl>
         </Grid>
-      </div>
+        <Grid item xs={12} sm={8}>
+          <Typography style={{overflowWrap: 'break-word'}}>
+            hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
+            difficulty: {numeral(difficulty).format('0,0.000')} hash/s<br/>
+            day: {numeral(dayReward).format('0.000000')} {tag}<br/>
+            7days: {numeral(dayReward*7).format('0.000000')} {tag}<br/>
+            month: {numeral(dayReward*30).format('0.000000')} {tag}<br/>
+            year: {numeral(dayReward*365).format('0.000000')} {tag}<br/>
+          </Typography>
+          <br/>
+          <Typography style={{overflowWrap: 'break-word'}}>
+            day: {numeral(dayProfit).format('$0,0.00')}<br/>
+            7days: {numeral(dayProfit*7).format('$0,0.00')}<br/>
+            month: {numeral(dayProfit*30).format('$0,0.00')}<br/>
+            year: {numeral(dayProfit*365).format('$0,0.00')}<br/>
+          </Typography>
+        </Grid>
+      </Grid>
     );
   }
 

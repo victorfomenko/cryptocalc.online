@@ -6,6 +6,7 @@ import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
 // Components
+import Typography from 'material-ui/Typography'
 import Calculator from '../../components/Calculator';
 import withRoot from '../../components/WithRoot';
 import withUrlParams from '../../components/utils/withUrlParams';
@@ -54,10 +55,11 @@ class LTC extends React.PureComponent {
     
     return (
       <div>
+        <Typography type="display1" gutterBottom>Litecoin майнинг-калькулятор</Typography>
         <Calculator 
           tag={tag}
           price={price} 
-          difficulty={difficulty24} 
+          difficulty={difficulty24*Math.pow(2,32)} 
           blockReward={block_reward}
           hashRate={hashRate}
           power={power}
