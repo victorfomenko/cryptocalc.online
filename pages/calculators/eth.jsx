@@ -3,23 +3,17 @@ import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper'
 import { withRouter } from 'next/router';
 import withStyles from 'material-ui/styles/withStyles';
-import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
-import { FormControl } from 'material-ui/Form';
-import withRoot from '../../components/WithRoot';
-import initStore from '../../config/store'
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
-import * as coinDux from '../../dux/coin/coinDux'
 
 // Components
-import Grid from 'material-ui/Grid';
-import Select from 'material-ui/Select';
-import Typography from 'material-ui/Typography';
-import Paper from 'material-ui/Paper';
+import Calculator from '../../components/Calculator';
+import withRoot from '../../components/WithRoot';
 import withUrlParams from '../../components/utils/withUrlParams';
 
 // Helpers
-import { calcMiningReward } from '../../utils/math';
+import initStore from '../../config/store'
+import * as coinDux from '../../dux/coin/coinDux'
 
 class ETH extends React.PureComponent {
   static propTypes = {
@@ -43,6 +37,7 @@ class ETH extends React.PureComponent {
   render() {
     const { 
       coin: { 
+        tag,
         mid: price,
         difficulty24, 
         block_reward 
@@ -54,108 +49,52 @@ class ETH extends React.PureComponent {
       }, 
       classes 
     } = this.props;
-    const dayReward = calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400, block_reward);
-    const cost = power*Math.pow(10, -3)*powerCost * 24;
-    const dayProfit = (dayReward*price)-cost;
     
     return (
       <div>
-        <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
-        <Grid container>
-          <Grid item xs={12} sm={4}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="price">Price</InputLabel>
-              <Input 
-                id="price" 
-                value={price}
-                disabled
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
-              <Input 
-                id="hashingPower" 
-                value={hashRate} 
-                onChange={this.handleHashRateChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>MH/s</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="power">Power</InputLabel>
-              <Input 
-                id="power" 
-                value={power} 
-                onChange={this.handlePowerChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>W</InputAdornment>}
-              />
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="powerCost">Power cost</InputLabel>
-              <Input 
-                id="powerCost" 
-                value={powerCost} 
-                onChange={this.handlePowerCostChange} 
-                endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$/kWh</InputAdornment>}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <Typography style={{overflowWrap: 'break-word'}}>
-              {/* hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
-              difficulty: {numeral(difficulty24).format('0,0.000')} hash/s<br/> */}
-              day: {numeral(dayReward).format('0.000000')} ETH<br/>
-              7days: {numeral(dayReward*7).format('0.000000')} ETH<br/>
-              month: {numeral(dayReward*30).format('0.000000')} ETH<br/>
-              year: {numeral(dayReward*365).format('0.000000')} ETH<br/>
-            </Typography>
-            <br/>
-            <Typography style={{overflowWrap: 'break-word'}}>
-              day: {numeral(dayProfit).format('$0,0.00')}<br/>
-              7days: {numeral(dayProfit*7).format('$0,0.00')}<br/>
-              month: {numeral(dayProfit*30).format('$0,0.00')}<br/>
-              year: {numeral(dayProfit*365).format('$0,0.00')}<br/>
-            </Typography>
-          </Grid>
-        </Grid>
+        <Calculator 
+          tag={tag}
+          price={price} 
+          difficulty={difficulty24} 
+          blockReward={block_reward}
+          hashRate={hashRate}
+          power={power}
+          powerCost={powerCost}
+          onHashRateChange={this.handleHashRateChange}
+          onPowerChange={this.handlePowerChange}
+          onPowerCostChange={this.handlePowerCostChange}
+        />
       </div>
     );
   }
 
-  handleHashRateChange = ({ target }) => {
+  handleHashRateChange = (hashRate) => {
     this.props.onChangeParams({ 
       ...this.props.params, 
-      hashRate: target.value
+      hashRate
     })
   }
 
-  handlePowerChange = ({ target }) => {
+  handlePowerChange = (power) => {
     this.props.onChangeParams({ 
       ...this.props.params,
-      power: target.value,
+      power,
     })
   }
-  handlePowerCostChange = ({ target }) => {
+  handlePowerCostChange = (powerCost) => {
     this.props.onChangeParams({ 
       ...this.props.params,
-      powerCost: target.value,
+      powerCost,
     })
   }
 }
-const styles = {
-  formControl: {
-    width: '100%',
-    marginBottom: '20px'
-  },
-  formAdornment:{
-    whiteSpace: 'nowrap'
-  }
-};
 
 ETH.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const styles = {
+};
 
 const mapDispatchToProps = (state) => ({
 })
