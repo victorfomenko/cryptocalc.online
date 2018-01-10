@@ -55,11 +55,14 @@ class ETH extends React.PureComponent {
       classes 
     } = this.props;
     const dayReward = calcMiningReward(difficulty24, hashRate*Math.pow(10, 6), 86400, block_reward);
+    const cost = power*Math.pow(10, -3)*powerCost * 24;
+    const dayProfit = (dayReward*price)-cost;
+    
     return (
       <div>
         <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
         <Grid container>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={4}>
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="price">Price</InputLabel>
               <Input 
@@ -97,7 +100,7 @@ class ETH extends React.PureComponent {
               />
             </FormControl>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <Typography style={{overflowWrap: 'break-word'}}>
               {/* hashpower: {hashRate*Math.pow(10, 6)} hash/s<br/>
               difficulty: {numeral(difficulty24).format('0,0.000')} hash/s<br/> */}
@@ -108,10 +111,10 @@ class ETH extends React.PureComponent {
             </Typography>
             <br/>
             <Typography style={{overflowWrap: 'break-word'}}>
-              day: {numeral(dayReward*price).format('$0,0.00')}<br/>
-              7days: {numeral(dayReward*7*price).format('$0,0.00')}<br/>
-              month: {numeral(dayReward*30*price).format('$0,0.00')}<br/>
-              year: {numeral(dayReward*365*price).format('$0,0.00')}<br/>
+              day: {numeral(dayProfit).format('$0,0.00')}<br/>
+              7days: {numeral(dayProfit*7).format('$0,0.00')}<br/>
+              month: {numeral(dayProfit*30).format('$0,0.00')}<br/>
+              year: {numeral(dayProfit*365).format('$0,0.00')}<br/>
             </Typography>
           </Grid>
         </Grid>

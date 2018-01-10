@@ -13,7 +13,7 @@ class Footer extends React.PureComponent {
 
     return (
       <footer className={this.props.classes.footer}>
-        <span>© 2017 Crypto calculator</span>
+        <span>© 2018 Crypto calculator</span>
       </footer>
     );
   }
