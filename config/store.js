@@ -5,9 +5,10 @@ import rootReducer from '../dux';
 // import { preloadRequiredData } from '../dux/helpers';
 
 
-const initStore = () => {
+const initStore = (initialState, options) => {
   const store = createStore(
     rootReducer,
+    initialState,
     composeWithDevTools(applyMiddleware(...middlewares)),
   );
   // store.dispatch(preloadRequiredData());

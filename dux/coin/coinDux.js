@@ -21,13 +21,13 @@ const error = createAction('error');
 // Async actions
 export const loadCoin = (req, coinId) => async (dispatch) => {
     dispatch(loading());
-    const data = await api.getCoin(req, coinId);
+    const data = await api.getCoin(coinId);
     dispatch(success({ data }));
 }
 
 // Default state
 const defaultState = {
-    data: {},
+    data: null,
     loading: false,
     error: false,
 };

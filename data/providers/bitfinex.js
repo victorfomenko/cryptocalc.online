@@ -1,8 +1,11 @@
-import { get as restGET } from '../../data/rest'
+import 'isomorphic-fetch';
 
-export const get = async (req, path = '', query={}, headers) => {
-    const baseUrl = req ? `${req.protocol}://${req.headers.host}` : '';
-    return await restGET(`${baseUrl}/api/bitfinex/${path}`, query,  headers)
+import RestClient from '@iqoption/affiliate-rest-client';
+const restClient = new RestClient('bitfinex', {}, process.env.REST_URL);
+
+
+export const get = (id, query={}, headers) => {
+  return restClient.get(id, query, headers)
 }
 
 export default {

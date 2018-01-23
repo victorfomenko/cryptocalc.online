@@ -23,7 +23,7 @@ class ETH extends React.PureComponent {
       mid: PropTypes.string.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
     params: PropTypes.shape({
       hashRate: PropTypes.string,
       power: PropTypes.string,
@@ -31,20 +31,18 @@ class ETH extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req }){
-    await store.dispatch(coinDux.loadCoin(req, 151))
-    const coin = coinDux.coinSelector(store.getState())
-    return { coin }
+  static async getInitialProps({ store, req, isServer }) {
+    if(isServer) {
+      await store.dispatch(coinDux.loadCoin(req, 151))
+      const coin = coinDux.coinSelector(store.getState())
+      return { coin }
+    }
+    return {};
   };
 
   render() {
     const { 
-      coin: { 
-        tag,
-        mid: price,
-        difficulty24, 
-        block_reward 
-      } , 
+      coin, 
       params: { 
         hashRate=84, 
         power=0, 
@@ -56,20 +54,27 @@ class ETH extends React.PureComponent {
     return (
       <div>
         <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
-        <Calculator 
-          tag={tag}
-          price={price} 
-          difficulty={difficulty24} 
-          blockReward={block_reward}
-          hashRate={hashRate}
-          power={power}
-          powerCost={powerCost}
-          onHashRateChange={this.handleHashRateChange}
-          onPowerChange={this.handlePowerChange}
-          onPowerCostChange={this.handlePowerCostChange}
-        />
+        { coin && 
+          <Calculator 
+            tag={coin.tag}
+            price={coin.mid} 
+            difficulty={coin.difficulty24} 
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            onHashRateChange={this.handleHashRateChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+          />
+        }
       </div>
     );
+  }
+
+
+  componentDidMount() {
+    this.props.loadCoin(null, 151);
   }
 
   handleHashRateChange = (hashRate) => {
@@ -93,10 +98,16 @@ class ETH extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = (state) => ({
-})
+const mapDispatchToProps = {
+  loadCoin: coinDux.loadCoin,
+};
 
-const WithRedux = withRedux(initStore, null, mapDispatchToProps)(
+const mapStateToProps = state => ({
+  coin: coinDux.coinSelector(state),
+});
+
+
+const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
   withUrlParams(ETH, { defaultParams: { hashRate: 84 } })
 );
 
