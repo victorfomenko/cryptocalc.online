@@ -10,7 +10,7 @@ const middlewares = [
 ];
 
 // logger для девелопа
-if (process.env.NODE_ENV === 'develop') {
+if (process.env.NODE_ENV === 'develop' && typeof window === 'object') {
   // eslint-disable-next-line
   const createLogger = require('redux-logger');
   middlewares.push(createLogger({ collapsed: true }));

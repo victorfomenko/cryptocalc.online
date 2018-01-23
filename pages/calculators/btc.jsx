@@ -23,7 +23,7 @@ class BTC extends React.PureComponent {
       mid: PropTypes.string.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
     params: PropTypes.shape({
       hashRate: PropTypes.string,
       power: PropTypes.string,
@@ -31,20 +31,17 @@ class BTC extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req }){
-    await store.dispatch(coinDux.loadCoin(req, 1))
-    const coin = coinDux.coinSelector(store.getState())
-    return { coin }
+  static async getInitialProps({ store, req, isServer }){
+    if(isServer) {
+      await store.dispatch(coinDux.loadCoin(req, 1))
+      const coin = coinDux.coinSelector(store.getState())
+      return { coin }
+    }
   };
 
   render() {
     const { 
-      coin: { 
-        tag,
-        mid: price,
-        difficulty24, 
-        block_reward 
-      } , 
+      coin, 
       params: { 
         hashRate=14000, 
         power=0, 
@@ -56,21 +53,27 @@ class BTC extends React.PureComponent {
     return (
       <div>
         <Typography type="display1" gutterBottom>Bitcoin майнинг-калькулятор</Typography>
-        <Calculator 
-          tag={tag}
-          price={price} 
-          hashUnit='GH'
-          difficulty={difficulty24*Math.pow(2,32)} 
-          blockReward={block_reward}
-          hashRate={hashRate}
-          power={power}
-          powerCost={powerCost}
-          onHashRateChange={this.handleHashRateChange}
-          onPowerChange={this.handlePowerChange}
-          onPowerCostChange={this.handlePowerCostChange}
-        />
+        { coin && 
+          <Calculator 
+            tag={coin.tag}
+            price={coin.mid} 
+            hashUnit='GH'
+            difficulty={coin.difficulty24*Math.pow(2,32)} 
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            onHashRateChange={this.handleHashRateChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+          />
+        }
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.props.loadCoin(null, 1);
   }
 
   handleHashRateChange = (hashRate) => {
@@ -94,10 +97,15 @@ class BTC extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = (state) => ({
+const mapDispatchToProps = {
+  loadCoin: coinDux.loadCoin
+}
+
+const mapStateToProps = (state) => ({
+  coin: coinDux.coinSelector(state)
 })
 
-const WithRedux = withRedux(initStore, null, mapDispatchToProps)(
+const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
   withUrlParams(BTC, { defaultParams: { hashRate: 84 } })
 );
 

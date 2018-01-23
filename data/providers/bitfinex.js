@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 
 import RestClient from '@iqoption/affiliate-rest-client';
-const restClient = new RestClient('bitfinex', {}, process.env.REST_URL);
+const restClient = new RestClient('bitfinex', {}, process.env.REST);
 
 
 export const get = (id, query={}, headers) => {
