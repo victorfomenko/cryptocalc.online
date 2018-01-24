@@ -10,6 +10,7 @@ module.exports = {
       script: 'server.js',
       env: {
         NODE_ENV: 'production',
+        REST: 'REST=https://cryptocalc.online/api/',
         SERVER_PORT: 3000,
       }
     }

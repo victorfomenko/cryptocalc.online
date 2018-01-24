@@ -4,9 +4,9 @@
   "description": "Crypto calculator",
   "main": "index.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "REST=http://localhost:3000/api/ node server.js",
     "build": "next build",
-    "start": "NODE_ENV=production node server.js",
+    "start": "REST=https://localhost:3000/api/ NODE_ENV=production node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
