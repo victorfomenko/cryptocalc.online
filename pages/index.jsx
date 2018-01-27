@@ -13,14 +13,16 @@ import initStore from '../config/store'
 import * as coinsDux from '../dux/coins/coinsDux'
 
 class Index extends React.PureComponent {
-  static async getInitialProps({ store, req }){
-    await store.dispatch(coinsDux.loadCurrencies(req))
-    const currencies = coinsDux.currenciesSelector(store.getState())
-    return { currencies }
+  static async getInitialProps({ store, req, isServer }){
+    if(isServer){
+      await store.dispatch(coinsDux.loadCurrencies(req));
+      const currencies = coinsDux.currenciesSelector(store.getState());
+      return { currencies };
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes,  } = this.props;
     const { currencies } = this.state;
     return (
       <div>
@@ -51,12 +53,21 @@ class Index extends React.PureComponent {
     );
   }
 
-  state = {
-    currencies: []
+  constructor(props){
+    super(props);
+    this.state = {
+      currencies: props.currencies || []
+    }
   }
 
-  componentDidMount(){
-    this.setState({ currencies: this.props.currencies })
+  componentDidMount() {
+    this.props.loadCurrencies();
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.currencies){
+      this.setState({ currencies: nextProps.currencies })
+    }
   }
 
   handleSearch = ({ target }) => {
@@ -78,9 +89,13 @@ const styles = {
   }
 };
 
-const mapDispatchToProps = (state) => ({
-  // currencies: coinsDux.currenciesSelector(state)
+const mapDispatchToProps = {
+  loadCurrencies: coinsDux.loadCurrencies
+}
+
+const mapStateToProps = (state) => ({
+  currencies: coinsDux.currenciesSelector(state)
 })
 
-const WithRedux = withRedux(initStore, null, mapDispatchToProps )(Index);
+const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps )(Index);
 export default withRoot(withStyles(styles)(WithRedux));
