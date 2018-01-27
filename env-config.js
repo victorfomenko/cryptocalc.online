@@ -1,3 +1,3 @@
 module.exports = {
-  'process.env.REST': process.env.REST
+  'process.env.REST': 'http://localhost:3000/api/'
 };
