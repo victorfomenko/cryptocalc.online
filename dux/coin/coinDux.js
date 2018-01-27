@@ -21,7 +21,7 @@ const error = createAction('error');
 // Async actions
 export const loadCoin = (req, coinId) => async (dispatch) => {
     dispatch(loading());
-    const data = await api.getCoin(coinId);
+    const data = await api.getCoin(req, coinId);
     dispatch(success({ data }));
 }
 

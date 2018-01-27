@@ -8,9 +8,9 @@ const idToTicker = {
 }
 
 export default {
-    getCoin: async (coinId) => {
-        const coinPromise = getCoin(coinId)
-        const bitfinexPromise = getBitfinex(`pubticker/${idToTicker[coinId]}`)
+    getCoin: async (req, coinId) => {
+        const coinPromise = getCoin(req, coinId)
+        const bitfinexPromise = getBitfinex(req, `pubticker/${idToTicker[coinId]}`)
         const [ pool, price ] = await Promise.all([coinPromise, bitfinexPromise]);
         return { ...pool, ...price }
     },
