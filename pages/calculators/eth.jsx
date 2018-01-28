@@ -46,7 +46,8 @@ class ETH extends React.PureComponent {
       params: { 
         hashRate=84, 
         power=0, 
-        powerCost=0 
+        powerCost=0,
+        poolFee=0
       }, 
       classes 
     } = this.props;
@@ -63,9 +64,11 @@ class ETH extends React.PureComponent {
             hashRate={hashRate}
             power={power}
             powerCost={powerCost}
+            poolFee={poolFee}
             onHashRateChange={this.handleHashRateChange}
             onPowerChange={this.handlePowerChange}
             onPowerCostChange={this.handlePowerCostChange}
+            onPoolFeeChange={this.handlePoolFeeChange}
           />
         }
       </div>
@@ -94,6 +97,12 @@ class ETH extends React.PureComponent {
     this.props.onChangeParams({ 
       ...this.props.params,
       powerCost,
+    })
+  }
+  handlePoolFeeChange = (poolFee) => {
+    this.props.onChangeParams({ 
+      ...this.props.params,
+      poolFee,
     })
   }
 }

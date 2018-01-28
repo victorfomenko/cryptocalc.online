@@ -3,8 +3,14 @@
  * @param  {Hash power hash/s} hash
  * @param  {Time in seconds} time
  * @param  {Reward in number of blocks} blockReward=1
+ * @param  {Pool fee in percents} poolFee=0
  */
-export const calcMiningReward = (difficulty, hash, time, blockReward=1) => {
+export const calcMiningReward = (difficulty, hash, time, blockReward=1, poolFee=0) => {
     // return number of coins you will get
-    return (hash * time * blockReward) / difficulty;
+    let reward = (hash * time * blockReward) / difficulty;
+    if(poolFee){
+        const poolFeeCost = reward/100*poolFee;
+        reward = reward-poolFeeCost
+    }
+    return reward;
 };

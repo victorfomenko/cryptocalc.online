@@ -28,6 +28,7 @@ class Calculator extends React.PureComponent {
     hashRate: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     power: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     powerCost: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    poolFee: PropTypes.number,
     hashUnit: PropTypes.oneOf(['TH', 'GH', 'MH', 'H']),
     onHashRateChange: PropTypes.func.isRequired,
     onPowerChange: PropTypes.func.isRequired,
@@ -40,11 +41,12 @@ class Calculator extends React.PureComponent {
 
   static defaultProps = {
     hashUnit: 'MH',
+    poolFee: 0,
   }
 
   render(){
-    const { tag, price, difficulty, blockReward, hashRate, power, powerCost, hashUnit, classes } = this.props;
-    const dayReward = calcMiningReward(difficulty, hashRate*HASH_RATE_MULTIPLIER[hashUnit], 86400, blockReward);
+    const { tag, price, difficulty, blockReward, hashRate, power, powerCost, hashUnit, classes, poolFee } = this.props;
+    const dayReward = calcMiningReward(difficulty, hashRate*HASH_RATE_MULTIPLIER[hashUnit], 86400, blockReward, poolFee);
     const cost = power*Math.pow(10, -3)*powerCost * 24;
     const dayProfit = (dayReward*price)-cost;
 
@@ -87,6 +89,15 @@ class Calculator extends React.PureComponent {
               endAdornment={<InputAdornment position="end" className={classes.formAdornment}>$/kWh</InputAdornment>}
             />
           </FormControl>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="poolFee">Pool fee</InputLabel>
+            <Input 
+              id="poolFee" 
+              value={poolFee}
+              onChange={this.handlePoolFeeChange} 
+              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>%</InputAdornment>}
+            />
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={8}>
           <Typography style={{overflowWrap: 'break-word'}}>
@@ -112,6 +123,7 @@ class Calculator extends React.PureComponent {
   handleHashRateChange = ({ target }) =>  this.props.onHashRateChange(target.value);
   handlePowerChange = ({ target }) =>  this.props.onPowerChange(target.value);
   handlePowerCostChange = ({ target }) =>  this.props.onPowerCostChange(target.value);
+  handlePoolFeeChange = ({ target }) =>  this.props.onPoolFeeChange(target.value);
 }
 
 const styles = {
