@@ -4,7 +4,10 @@ import { get as getBitfinex } from '../../data/providers/bitfinex';
 const idToTicker = {
     1: 'btcusd',
     4: 'ltcusd',
+    34: 'dshusd',
     151: 'ethusd',
+    162: 'etcusd',
+    166: 'zecusd',
 }
 
 export default {

@@ -46,19 +46,20 @@ class BTC extends React.PureComponent {
         hashRate=14000, 
         power=0, 
         powerCost=0,
-        poolFee=0
+        poolFee=0,
+        hashUnit='GH',
       }, 
       classes 
     } = this.props;
     
     return (
       <div>
-        <Typography type="display1" gutterBottom>Bitcoin майнинг-калькулятор</Typography>
+        <Typography type="display1" gutterBottom>Bitcoin(BTC) майнинг-калькулятор</Typography>
         { coin && 
           <Calculator 
             tag={coin.tag}
             price={coin.mid} 
-            hashUnit='GH'
+            hashUnit={hashUnit}
             difficulty={coin.difficulty24*Math.pow(2,32)} 
             blockReward={coin.block_reward}
             hashRate={hashRate}
@@ -66,6 +67,7 @@ class BTC extends React.PureComponent {
             powerCost={powerCost}
             poolFee={poolFee}
             onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
             onPowerChange={this.handlePowerChange}
             onPowerCostChange={this.handlePowerCostChange}
             onPoolFeeChange={this.handlePoolFeeChange}
@@ -77,6 +79,10 @@ class BTC extends React.PureComponent {
 
   componentDidMount() {
     this.props.loadCoin(null, 1);
+  }
+
+  componentWillUnmount(){
+    this.props.clearCoin();
   }
 
   handleHashRateChange = (hashRate) => {
@@ -104,10 +110,17 @@ class BTC extends React.PureComponent {
       poolFee,
     })
   }
+  handleHashUnitChange = (hashUnit) => {
+    this.props.onChangeParams({ 
+      ...this.props.params,
+      hashUnit,
+    })
+  }
 }
 
 const mapDispatchToProps = {
-  loadCoin: coinDux.loadCoin
+  loadCoin: coinDux.loadCoin,
+  clearCoin: coinDux.clearCoin
 }
 
 const mapStateToProps = (state) => ({

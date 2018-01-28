@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 
 // Components
 import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
+import Select from 'material-ui/Select';
+import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
 import Typography from 'material-ui/Typography'
 import Grid from 'material-ui/Grid';
@@ -11,13 +13,7 @@ import Grid from 'material-ui/Grid';
 // Helpers
 import numeral from 'numeral';
 import { calcMiningReward } from '../utils/math';
-
-const HASH_RATE_MULTIPLIER = {
-  'MH': 1,
-  'MH': Math.pow(10, 6),
-  'GH': Math.pow(10, 9),
-  'TH': Math.pow(10, 12),
-}
+import { HASH_RATE_MULTIPLIER } from '../config/constants'
 
 class Calculator extends React.PureComponent {
   static propTypes = {
@@ -31,6 +27,7 @@ class Calculator extends React.PureComponent {
     poolFee: PropTypes.number,
     hashUnit: PropTypes.oneOf(['TH', 'GH', 'MH', 'H']),
     onHashRateChange: PropTypes.func.isRequired,
+    onHashUnitChange: PropTypes.func.isRequired,
     onPowerChange: PropTypes.func.isRequired,
     onPowerCostChange: PropTypes.func.isRequired,
     classes: PropTypes.shape({
@@ -46,6 +43,7 @@ class Calculator extends React.PureComponent {
 
   render(){
     const { tag, price, difficulty, blockReward, hashRate, power, powerCost, hashUnit, classes, poolFee } = this.props;
+    console.log({ tag, price, difficulty, blockReward, hashRate, power, hashUnit })
     const dayReward = calcMiningReward(difficulty, hashRate*HASH_RATE_MULTIPLIER[hashUnit], 86400, blockReward, poolFee);
     const cost = power*Math.pow(10, -3)*powerCost * 24;
     const dayProfit = (dayReward*price)-cost;
@@ -68,7 +66,17 @@ class Calculator extends React.PureComponent {
               id="hashingPower" 
               value={hashRate} 
               onChange={this.handleHashRateChange} 
-              endAdornment={<InputAdornment position="end" className={classes.formAdornment}>{hashUnit}/s</InputAdornment>}
+              endAdornment={
+                <InputAdornment position="end" className={classes.formAdornment}>
+                  <Select value={hashUnit} className={classes.formAdornmentSelect} onChange={this.handleHashUnitChange}>
+                    {Object.keys(HASH_RATE_MULTIPLIER).map(item => (
+                      <MenuItem key={item} value={item}>
+                        {item}/s
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </InputAdornment>
+              }
             />
           </FormControl>
           <FormControl className={classes.formControl}>
@@ -124,6 +132,7 @@ class Calculator extends React.PureComponent {
   handlePowerChange = ({ target }) =>  this.props.onPowerChange(target.value);
   handlePowerCostChange = ({ target }) =>  this.props.onPowerCostChange(target.value);
   handlePoolFeeChange = ({ target }) =>  this.props.onPoolFeeChange(target.value);
+  handleHashUnitChange = ({ target }) =>  this.props.onHashUnitChange(target.value);
 }
 
 const styles = {
@@ -133,6 +142,14 @@ const styles = {
   },
   formAdornment:{
     whiteSpace: 'nowrap'
+  },
+  formAdornmentSelect: {
+    '&:before': {
+      height: '0px !important'
+    },
+    '&:after': {
+      height: 0
+    }
   }
 };
 

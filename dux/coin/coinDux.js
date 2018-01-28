@@ -16,6 +16,7 @@ export const errorSelector = createSelector(duxSelector, ({ error }) => error);
 const loading = createAction('loading');
 const success = createAction('success');
 const error = createAction('error');
+export const clearCoin = createAction('clearCoin');
 
 
 // Async actions
@@ -51,6 +52,10 @@ export default createReducer(
       error: payload,
       loading: false,
     }),
+    [clearCoin]: (state) => ({
+      ...state,
+      data: null,
+    })
   },
   defaultState,
 );

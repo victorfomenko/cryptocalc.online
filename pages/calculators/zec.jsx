@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withRedux from 'next-redux-wrapper'
-import { withRouter } from 'next/router';
+import withRedux from 'next-redux-wrapper';
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
@@ -15,7 +14,7 @@ import withUrlParams from '../../components/utils/withUrlParams';
 import initStore from '../../config/store'
 import * as coinDux from '../../dux/coin/coinDux'
 
-class LTC extends React.PureComponent {
+class ZEC extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
     coin: PropTypes.shape({
@@ -23,7 +22,7 @@ class LTC extends React.PureComponent {
       mid: PropTypes.string.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
     params: PropTypes.shape({
       hashRate: PropTypes.string,
       power: PropTypes.string,
@@ -31,64 +30,61 @@ class LTC extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req }){
+  static async getInitialProps({ store, req, isServer }) {
     if(isServer) {
-      await store.dispatch(coinDux.loadCoin(req, 4))
+      await store.dispatch(coinDux.loadCoin(req, 166))
       const coin = coinDux.coinSelector(store.getState())
       return { coin }
     }
+    return {};
   };
 
   render() {
     const { 
-      coin: { 
-        tag,
-        mid: price,
-        difficulty24, 
-        block_reward 
-      } , 
+      coin, 
       params: { 
-        hashRate=500, 
+        hashRate=870, 
         power=0, 
         powerCost=0,
-        poolFee=0,
-        hashUnit='MH',
+        hashUnit='H',
+        poolFee=0
       }, 
       classes 
     } = this.props;
-    
+
     return (
       <div>
-        <Typography type="display1" gutterBottom>Litecoin(LTC) майнинг-калькулятор</Typography>
-        <Calculator 
-          tag={tag}
-          price={price} 
-          difficulty={difficulty24*Math.pow(2,32)} 
-          blockReward={block_reward}
-          hashRate={hashRate}
-          hashUnit={hashUnit}
-          power={power}
-          powerCost={powerCost}
-          poolFee={poolFee}
-          onHashRateChange={this.handleHashRateChange}
-          onHashUnitChange={this.handleHashUnitChange}
-          onPowerChange={this.handlePowerChange}
-          onPowerCostChange={this.handlePowerCostChange}
-          onPoolFeeChange={this.handlePoolFeeChange}
-        />
+        <Typography type="display1" gutterBottom>Zcash(ZEC) майнинг-калькулятор</Typography>
+        { coin && 
+          <Calculator 
+            tag={coin.tag}
+            price={coin.mid} 
+            hashUnit={hashUnit}
+            difficulty={coin.difficulty24} 
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            poolFee={poolFee}
+            onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+            onPoolFeeChange={this.handlePoolFeeChange}
+          />
+        }
       </div>
     );
   }
 
 
   componentDidMount() {
-    this.props.loadCoin(null, 4);
+    this.props.loadCoin(null, 166);
   }
 
   componentWillUnmount(){
     this.props.clearCoin();
   }
-
 
   handleHashRateChange = (hashRate) => {
     this.props.onChangeParams({ 
@@ -123,7 +119,6 @@ class LTC extends React.PureComponent {
   }
 }
 
-
 const mapDispatchToProps = {
   loadCoin: coinDux.loadCoin,
   clearCoin: coinDux.clearCoin,
@@ -133,8 +128,9 @@ const mapStateToProps = state => ({
   coin: coinDux.coinSelector(state),
 });
 
+
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
-  withUrlParams(LTC)
+  withUrlParams(ZEC)
 );
 
 export default withRoot(WithRedux);

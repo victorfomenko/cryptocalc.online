@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withRedux from 'next-redux-wrapper'
-import { withRouter } from 'next/router';
+import withRedux from 'next-redux-wrapper';
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
@@ -47,18 +46,20 @@ class ETH extends React.PureComponent {
         hashRate=84, 
         power=0, 
         powerCost=0,
+        hashUnit='MH',
         poolFee=0
       }, 
       classes 
     } = this.props;
-    
+
     return (
       <div>
-        <Typography type="display1" gutterBottom>Etherium майнинг-калькулятор</Typography>
+        <Typography type="display1" gutterBottom>Etherium(ETH) майнинг-калькулятор</Typography>
         { coin && 
           <Calculator 
             tag={coin.tag}
             price={coin.mid} 
+            hashUnit={hashUnit}
             difficulty={coin.difficulty24} 
             blockReward={coin.block_reward}
             hashRate={hashRate}
@@ -66,6 +67,7 @@ class ETH extends React.PureComponent {
             powerCost={powerCost}
             poolFee={poolFee}
             onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
             onPowerChange={this.handlePowerChange}
             onPowerCostChange={this.handlePowerCostChange}
             onPoolFeeChange={this.handlePoolFeeChange}
@@ -78,6 +80,10 @@ class ETH extends React.PureComponent {
 
   componentDidMount() {
     this.props.loadCoin(null, 151);
+  }
+
+  componentWillUnmount(){
+    this.props.clearCoin();
   }
 
   handleHashRateChange = (hashRate) => {
@@ -105,10 +111,17 @@ class ETH extends React.PureComponent {
       poolFee,
     })
   }
+  handleHashUnitChange = (hashUnit) => {
+    this.props.onChangeParams({ 
+      ...this.props.params,
+      hashUnit,
+    })
+  }
 }
 
 const mapDispatchToProps = {
   loadCoin: coinDux.loadCoin,
+  clearCoin: coinDux.clearCoin,
 };
 
 const mapStateToProps = state => ({
@@ -117,7 +130,7 @@ const mapStateToProps = state => ({
 
 
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
-  withUrlParams(ETH, { defaultParams: { hashRate: 84 } })
+  withUrlParams(ETH)
 );
 
 export default withRoot(WithRedux);
