@@ -31,7 +31,7 @@ class LTC extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req }){
+  static async getInitialProps({ store, req, isServer }){
     if(isServer) {
       await store.dispatch(coinDux.loadCoin(req, 4))
       const coin = coinDux.coinSelector(store.getState())
