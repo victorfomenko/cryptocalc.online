@@ -60,7 +60,7 @@ class ZEC extends React.PureComponent {
             tag={coin.tag}
             price={coin.mid} 
             hashUnit={hashUnit}
-            difficulty={coin.difficulty24} 
+            difficulty={coin.difficulty24*Math.pow(2,13)} 
             blockReward={coin.block_reward}
             hashRate={hashRate}
             power={power}

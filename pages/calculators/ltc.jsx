@@ -23,7 +23,7 @@ class LTC extends React.PureComponent {
       mid: PropTypes.string.isRequired,
       difficulty24: PropTypes.number.isRequired,
       block_reward: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
     params: PropTypes.shape({
       hashRate: PropTypes.string,
       power: PropTypes.string,
@@ -41,12 +41,7 @@ class LTC extends React.PureComponent {
 
   render() {
     const { 
-      coin: { 
-        tag,
-        mid: price,
-        difficulty24, 
-        block_reward 
-      } , 
+      coin, 
       params: { 
         hashRate=500, 
         power=0, 
@@ -60,22 +55,24 @@ class LTC extends React.PureComponent {
     return (
       <div>
         <Typography type="display1" gutterBottom>Litecoin(LTC) майнинг-калькулятор</Typography>
-        <Calculator 
-          tag={tag}
-          price={price} 
-          difficulty={difficulty24*Math.pow(2,32)} 
-          blockReward={block_reward}
-          hashRate={hashRate}
-          hashUnit={hashUnit}
-          power={power}
-          powerCost={powerCost}
-          poolFee={poolFee}
-          onHashRateChange={this.handleHashRateChange}
-          onHashUnitChange={this.handleHashUnitChange}
-          onPowerChange={this.handlePowerChange}
-          onPowerCostChange={this.handlePowerCostChange}
-          onPoolFeeChange={this.handlePoolFeeChange}
-        />
+        { coin && 
+          <Calculator 
+            tag={coin.tag}
+            price={coin.mid} 
+            hashUnit={hashUnit}
+            difficulty={coin.difficulty24*Math.pow(2,32)} 
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            poolFee={poolFee}
+            onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+            onPoolFeeChange={this.handlePoolFeeChange}
+          />
+        }
       </div>
     );
   }

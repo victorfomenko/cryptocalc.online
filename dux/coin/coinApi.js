@@ -8,6 +8,7 @@ const idToTicker = {
     151: 'ethusd',
     162: 'etcusd',
     166: 'zecusd',
+    193: 'bchusd',
 }
 
 export default {

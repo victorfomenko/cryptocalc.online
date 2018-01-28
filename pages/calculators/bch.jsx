@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withRedux from 'next-redux-wrapper';
+import withRedux from 'next-redux-wrapper'
+import { withRouter } from 'next/router';
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
@@ -14,7 +15,7 @@ import withUrlParams from '../../components/utils/withUrlParams';
 import initStore from '../../config/store'
 import * as coinDux from '../../dux/coin/coinDux'
 
-class DASH extends React.PureComponent {
+class BCH extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
     coin: PropTypes.shape({
@@ -30,31 +31,30 @@ class DASH extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req, isServer }) {
+  static async getInitialProps({ store, req, isServer }){
     if(isServer) {
-      await store.dispatch(coinDux.loadCoin(req, 34))
+      await store.dispatch(coinDux.loadCoin(req, 193))
       const coin = coinDux.coinSelector(store.getState())
       return { coin }
     }
-    return {};
   };
 
   render() {
     const { 
       coin, 
       params: { 
-        hashRate=150000, 
-        power=0, 
-        powerCost=0,
-        hashUnit='MH',
-        poolFee=0
+        hashRate=14000, 
+        power=1370, 
+        powerCost=0.1,
+        poolFee=0,
+        hashUnit='GH',
       }, 
       classes 
     } = this.props;
-
+    
     return (
       <div>
-        <Typography type="display1" gutterBottom>Dash(DASH) майнинг-калькулятор</Typography>
+        <Typography type="display1" gutterBottom>Bitcoin Cash(BCH) майнинг-калькулятор</Typography>
         { coin && 
           <Calculator 
             tag={coin.tag}
@@ -77,9 +77,8 @@ class DASH extends React.PureComponent {
     );
   }
 
-
   componentDidMount() {
-    this.props.loadCoin(null, 34);
+    this.props.loadCoin(null, 193);
   }
 
   componentWillUnmount(){
@@ -121,16 +120,15 @@ class DASH extends React.PureComponent {
 
 const mapDispatchToProps = {
   loadCoin: coinDux.loadCoin,
-  clearCoin: coinDux.clearCoin,
-};
+  clearCoin: coinDux.clearCoin
+}
 
-const mapStateToProps = state => ({
-  coin: coinDux.coinSelector(state),
-});
-
+const mapStateToProps = (state) => ({
+  coin: coinDux.coinSelector(state)
+})
 
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
-  withUrlParams(DASH)
+  withUrlParams(BCH)
 );
 
 export default withRoot(WithRedux);
