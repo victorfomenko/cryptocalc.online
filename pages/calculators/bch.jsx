@@ -34,7 +34,7 @@ class BCH extends React.PureComponent {
   static async getInitialProps({ store, req, isServer }){
     if(isServer) {
       await store.dispatch(coinDux.loadCoin(req, 193))
-      const coin = coinDux.coinSelector(store.getState())
+      const coin = coinDux.bchSelector(store.getState())
       return { coin }
     }
   };
@@ -81,10 +81,6 @@ class BCH extends React.PureComponent {
     this.props.loadCoin(null, 193);
   }
 
-  componentWillUnmount(){
-    this.props.clearCoin();
-  }
-
   handleHashRateChange = (hashRate) => {
     this.props.onChangeParams({ 
       ...this.props.params, 
@@ -119,12 +115,11 @@ class BCH extends React.PureComponent {
 }
 
 const mapDispatchToProps = {
-  loadCoin: coinDux.loadCoin,
-  clearCoin: coinDux.clearCoin
+  loadCoin: coinDux.loadCoin
 }
 
 const mapStateToProps = (state) => ({
-  coin: coinDux.coinSelector(state)
+  coin: coinDux.bchSelector(state)
 })
 
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(

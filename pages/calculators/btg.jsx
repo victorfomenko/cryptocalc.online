@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withRedux from 'next-redux-wrapper';
+import withRedux from 'next-redux-wrapper'
+import { withRouter } from 'next/router';
 import numeral from 'numeral';
 import memoize from 'lodash/memoize';
 
@@ -14,7 +15,7 @@ import withUrlParams from '../../components/utils/withUrlParams';
 import initStore from '../../config/store'
 import * as coinDux from '../../dux/coin/coinDux'
 
-class ZEC extends React.PureComponent {
+class BTG extends React.PureComponent {
   static propTypes = {
     onChangeParams: PropTypes.func.isRequired,
     coin: PropTypes.shape({
@@ -30,13 +31,12 @@ class ZEC extends React.PureComponent {
     }).isRequired,
   };
 
-  static async getInitialProps({ store, req, isServer }) {
+  static async getInitialProps({ store, req, isServer }){
     if(isServer) {
-      await store.dispatch(coinDux.loadCoin(req, 166))
-      const coin = coinDux.zecSelector(store.getState())
+      await store.dispatch(coinDux.loadCoin(req, 214))
+      const coin = coinDux.btgSelector(store.getState())
       return { coin }
     }
-    return {};
   };
 
   render() {
@@ -46,15 +46,15 @@ class ZEC extends React.PureComponent {
         hashRate=870, 
         power=0, 
         powerCost=0,
+        poolFee=0,
         hashUnit='H',
-        poolFee=0
       }, 
       classes 
     } = this.props;
-
+    
     return (
       <div>
-        <Typography type="display1" gutterBottom>Zcash(ZEC) майнинг-калькулятор</Typography>
+        <Typography type="display1" gutterBottom>Bitcoin Gold(BTG) майнинг-калькулятор</Typography>
         { coin && 
           <Calculator 
             tag={coin.tag}
@@ -77,9 +77,8 @@ class ZEC extends React.PureComponent {
     );
   }
 
-
   componentDidMount() {
-    this.props.loadCoin(null, 166);
+    this.props.loadCoin(null, 214);
   }
 
   handleHashRateChange = (hashRate) => {
@@ -116,16 +115,15 @@ class ZEC extends React.PureComponent {
 }
 
 const mapDispatchToProps = {
-  loadCoin: coinDux.loadCoin,
-};
+  loadCoin: coinDux.loadCoin
+}
 
-const mapStateToProps = state => ({
-  coin: coinDux.zecSelector(state),
-});
-
+const mapStateToProps = (state) => ({
+  coin: coinDux.btgSelector(state)
+})
 
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
-  withUrlParams(ZEC)
+  withUrlParams(BTG)
 );
 
 export default withRoot(WithRedux);

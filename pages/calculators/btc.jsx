@@ -34,7 +34,7 @@ class BTC extends React.PureComponent {
   static async getInitialProps({ store, req, isServer }){
     if(isServer) {
       await store.dispatch(coinDux.loadCoin(req, 1))
-      const coin = coinDux.coinSelector(store.getState())
+      const coin = coinDux.btcSelector(store.getState())
       return { coin }
     }
   };
@@ -81,10 +81,6 @@ class BTC extends React.PureComponent {
     this.props.loadCoin(null, 1);
   }
 
-  componentWillUnmount(){
-    this.props.clearCoin();
-  }
-
   handleHashRateChange = (hashRate) => {
     this.props.onChangeParams({ 
       ...this.props.params, 
@@ -119,16 +115,15 @@ class BTC extends React.PureComponent {
 }
 
 const mapDispatchToProps = {
-  loadCoin: coinDux.loadCoin,
-  clearCoin: coinDux.clearCoin
+  loadCoin: coinDux.loadCoin
 }
 
 const mapStateToProps = (state) => ({
-  coin: coinDux.coinSelector(state)
+  coin: coinDux.btcSelector(state)
 })
 
 const WithRedux = withRedux(initStore, mapStateToProps, mapDispatchToProps)(
-  withUrlParams(BTC, { defaultParams: { hashRate: 84 } })
+  withUrlParams(BTC)
 );
 
 export default withRoot(WithRedux);

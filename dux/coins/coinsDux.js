@@ -23,8 +23,9 @@ export const loadCurrencies = (req) => async (dispatch) => {
     dispatch(loading());
     const data = await api.getCurrencies(req, {
       where: {
+        type: {eq: 'crypto'},
         ticker: {
-          in: ['BTC', 'ETH', 'LTC', 'ETC', 'BCH', 'XMR', 'ZEC', 'SAN', 'DASH']
+          in: ['BTC', 'ETH', 'LTC', 'ETC', 'BCH', 'BTG', 'ZEC', 'SAN', 'DASH']
         }
       }, 
       candles: 'q1',

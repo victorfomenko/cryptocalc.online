@@ -33,7 +33,7 @@ class ETC extends React.PureComponent {
   static async getInitialProps({ store, req, isServer }) {
     if(isServer) {
       await store.dispatch(coinDux.loadCoin(req, 162))
-      const coin = coinDux.coinSelector(store.getState())
+      const coin = coinDux.etcSelector(store.getState())
       return { coin }
     }
     return {};
@@ -82,10 +82,6 @@ class ETC extends React.PureComponent {
     this.props.loadCoin(null, 162);
   }
 
-  componentWillUnmount(){
-    this.props.clearCoin();
-  }
-
   handleHashRateChange = (hashRate) => {
     this.props.onChangeParams({ 
       ...this.props.params, 
@@ -121,11 +117,10 @@ class ETC extends React.PureComponent {
 
 const mapDispatchToProps = {
   loadCoin: coinDux.loadCoin,
-  clearCoin: coinDux.clearCoin,
 };
 
 const mapStateToProps = state => ({
-  coin: coinDux.coinSelector(state),
+  coin: coinDux.etcSelector(state),
 });
 
 
