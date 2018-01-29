@@ -15,7 +15,7 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/favicon.ico?v=1" />
           <title>{'Crypto calculator'}</title>
           <meta name="author" content="Victor Fomenko"/>
-          <meta name="keywords" content="Крипто калькулятор"/>
+          <meta name="keywords" content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир."/>
           <meta name="description" content="Крипто калькулятор"/>
           <link rel="stylesheet" href="/static/css/global.css" />
         </Head>
