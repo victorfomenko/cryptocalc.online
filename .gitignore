@@ -92,6 +92,7 @@ crashlytics-build.properties
 fabric.properties
 
 /.next/
+src/.next
 
 # contributors recomendation of package dotenv(https://www.npmjs.com/package/dotenv#should-i-commit-my-env-file)
 /.env

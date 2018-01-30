@@ -4,9 +4,9 @@ const { parse } = require('url');
 const next = require('next');
 const dev = process.env.NODE_ENV !== 'production'
 const port = process.env.SERVER_PORT || 3000
-const app = next({ dev })
+const app = next({ dir: './src', dev });
 const handle = app.getRequestHandler()
-const proxyOptions = require('./config/proxy');
+const proxyOptions = require('./src/config/proxy');
 
 app.prepare().then(() => {
   const server = express();
