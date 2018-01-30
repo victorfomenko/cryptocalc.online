@@ -1,0 +1,36 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "extends": [
+    "@iqoption/eslint-config-affiliate-iqoption",
+    "prettier"
+  ],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "globals": {
+    "__NEXT_DATA__": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "jsx-a11y/anchor-is-valid": 0,
+    "jsx-a11y/anchor-has-content": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ]
+  }
+}
