@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import Head from 'next/head';
+import withStyles from 'material-ui/styles/withStyles';
+
+// Components
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
-import withStyles from 'material-ui/styles/withStyles';
 import TextField from 'material-ui/TextField';
 import Card from '../components/Card';
 import withRoot from '../components/WithRoot';
+
+// Helpers
 import initStore from '../config/store';
 import * as coinsDux from '../dux/coins/coinsDux';
 
@@ -33,6 +38,13 @@ class Index extends React.PureComponent {
     const { currencies } = this.state;
     return (
       <div>
+        <Head>
+          <meta
+            name="keywords"
+            content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир."
+          />
+          <meta name="description" content="Крипто калькулятор" />
+        </Head>
         <Typography type="display1" gutterBottom>
           Майнинг-калькуляторы криптовалют
         </Typography>

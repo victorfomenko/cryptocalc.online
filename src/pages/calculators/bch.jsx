@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import Head from 'next/head';
 
 // Components
 import Typography from 'material-ui/Typography';
@@ -49,9 +50,14 @@ class BCH extends React.PureComponent {
         hashUnit = 'GH',
       },
     } = this.props;
-
     return (
       <div>
+        <Head>
+          <meta
+            name="description"
+            content="Калькулятор доходности майнинга BCH"
+          />
+        </Head>
         <Typography type="display1" gutterBottom>
           Bitcoin Cash(BCH) майнинг-калькулятор
         </Typography>

@@ -12,7 +12,7 @@ import Grid from 'material-ui/Grid';
 
 // Helpers
 import numeral from 'numeral';
-import { calcMiningReward } from '../utils/math';
+import calcMiningReward from '../utils/math';
 import { HASH_RATE_MULTIPLIER } from '../config/constants';
 
 class Calculator extends React.PureComponent {
@@ -34,6 +34,7 @@ class Calculator extends React.PureComponent {
     onHashUnitChange: PropTypes.func.isRequired,
     onPowerChange: PropTypes.func.isRequired,
     onPowerCostChange: PropTypes.func.isRequired,
+    onPoolFeeChange: PropTypes.func,
     classes: PropTypes.shape({
       formControl: PropTypes.string.isRequired,
       formAdornment: PropTypes.string.isRequired,
@@ -65,7 +66,7 @@ class Calculator extends React.PureComponent {
       blockReward,
       poolFee,
     );
-    const cost = power * Math.pow(10, -3) * powerCost * 24;
+    const cost = power * 10 ** -3 * powerCost * 24;
     const dayProfit = dayReward * price - cost;
 
     return (
@@ -91,7 +92,7 @@ class Calculator extends React.PureComponent {
             <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
             <Input
               id="hashingPower"
-              value={hashRate}
+              defaultValue={hashRate}
               onChange={this.handleHashRateChange}
               endAdornment={
                 <InputAdornment
@@ -193,11 +194,18 @@ class Calculator extends React.PureComponent {
 
   handleHashRateChange = ({ target }) =>
     this.props.onHashRateChange(target.value);
+
   handlePowerChange = ({ target }) => this.props.onPowerChange(target.value);
+
   handlePowerCostChange = ({ target }) =>
     this.props.onPowerCostChange(target.value);
-  handlePoolFeeChange = ({ target }) =>
-    this.props.onPoolFeeChange(target.value);
+
+  handlePoolFeeChange = ({ target }) => {
+    if (this.props.onPoolFeeChange) {
+      this.props.onPoolFeeChange(target.value);
+    }
+  };
+
   handleHashUnitChange = ({ target }) =>
     this.props.onHashUnitChange(target.value);
 }
