@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import memoize from 'lodash/memoize';
 import { withRouter } from 'next/router';
-import hoistStatics from 'hoist-non-react-statics';
 
 // Adds url-params parsing and replacing by object
 // based on https://mikebridge.github.io/articles/react-router-4-query-string-hoc/
@@ -13,6 +12,7 @@ function withUrlParams(Component, config = {}) {
     static propTypes = {
       url: PropTypes.shape({
         query: PropTypes.object.isRequired,
+        pathname: PropTypes.string.isRequired,
       }).isRequired,
       router: PropTypes.shape({
         push: PropTypes.func.isRequired,
@@ -54,7 +54,7 @@ function withUrlParams(Component, config = {}) {
     };
   }
 
-  return hoistStatics(withRouter(WrappedComponent), Component);
+  return withRouter(WrappedComponent);
 }
 
 export default withUrlParams;
@@ -87,13 +87,6 @@ const filterDefaultValues = memoize((obj, defaultValues) =>
 
 const parseQuery = memoize(val => qs.parse(val));
 
-const formatNumbers = memoize(([key, value]) => {
-  const testedVal = Number(value);
-  return Number.isNaN(testedVal) || Array.isArray(value)
-    ? [key, value]
-    : [key, testedVal];
-});
-
 const formatBooleans = memoize(([key, value]) => {
   if (typeof value !== 'string') {
     return [key, value];
@@ -110,7 +103,6 @@ const formatBooleans = memoize(([key, value]) => {
 
 const getFormattedParams = memoize(params =>
   Object.entries(params)
-    // .map(formatNumbers)
     .map(formatBooleans)
     .reduce((res, [key, value]) => {
       res[key] = value;
