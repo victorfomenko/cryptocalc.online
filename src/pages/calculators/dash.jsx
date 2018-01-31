@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import Head from 'next/head';
 
 // Components
 import Typography from 'material-ui/Typography';
@@ -52,6 +53,12 @@ class DASH extends React.PureComponent {
 
     return (
       <div>
+        <Head>
+          <meta
+            name="description"
+            content="Калькулятор доходности майнинга DASH"
+          />
+        </Head>
         <Typography type="display1" gutterBottom>
           Dash(DASH) майнинг-калькулятор
         </Typography>
