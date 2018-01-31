@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
+import Head from 'next/head';
 
 // Components
 import Typography from 'material-ui/Typography';
@@ -52,6 +53,12 @@ class ZEC extends React.PureComponent {
 
     return (
       <div>
+        <Head>
+          <meta
+            name="description"
+            content="Калькулятор доходности майнинга ZEC"
+          />
+        </Head>
         <Typography type="display1" gutterBottom>
           Zcash(ZEC) майнинг-калькулятор
         </Typography>
