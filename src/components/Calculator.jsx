@@ -44,8 +44,6 @@ class Calculator extends React.PureComponent {
     classes: PropTypes.shape({
       formControl: PropTypes.string.isRequired,
       formAdornment: PropTypes.string.isRequired,
-      calcLine: PropTypes.string.isRequired,
-      calcCell: PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -74,8 +72,8 @@ class Calculator extends React.PureComponent {
       blockReward,
       poolFee,
     );
-    const cost = power * 10 ** -3 * powerCost * 24;
-    const dayProfit = dayReward * price - cost;
+    const powerCostDay = power * 10 ** -3 * powerCost * 24;
+    const dayProfit = dayReward * price - powerCostDay;
 
     return (
       <Grid container>
@@ -191,7 +189,9 @@ class Calculator extends React.PureComponent {
                   <TableCell numeric>
                     {numeral(dayReward).format('0.00000')}
                   </TableCell>
-                  <TableCell numeric>{1}</TableCell>
+                  <TableCell numeric>
+                    {numeral(powerCostDay).format('0.00')}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Per week</TableCell>
@@ -201,7 +201,9 @@ class Calculator extends React.PureComponent {
                   <TableCell numeric>
                     {numeral(dayProfit * 7).format('$0,0.00')}
                   </TableCell>
-                  <TableCell numeric>{1}</TableCell>
+                  <TableCell numeric>
+                    {numeral(powerCostDay * 7).format('0.00')}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Per month</TableCell>
@@ -211,7 +213,9 @@ class Calculator extends React.PureComponent {
                   <TableCell numeric>
                     {numeral(dayProfit * 30).format('$0,0.00')}
                   </TableCell>
-                  <TableCell numeric>{1}</TableCell>
+                  <TableCell numeric>
+                    {numeral(powerCostDay * 30).format('0.00')}
+                  </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Per year</TableCell>
@@ -221,7 +225,9 @@ class Calculator extends React.PureComponent {
                   <TableCell numeric>
                     {numeral(dayProfit * 365).format('$0,0.00')}
                   </TableCell>
-                  <TableCell numeric>{1}</TableCell>
+                  <TableCell numeric>
+                    {numeral(powerCostDay * 365).format('0.00')}
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
