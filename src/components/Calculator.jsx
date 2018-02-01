@@ -7,13 +7,19 @@ import Input, { InputLabel, InputAdornment } from 'material-ui/Input';
 import Select from 'material-ui/Select';
 import { MenuItem } from 'material-ui/Menu';
 import { FormControl } from 'material-ui/Form';
-import Typography from 'material-ui/Typography';
+// import Typography from 'material-ui/Typography';
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from 'material-ui/Table';
 import Grid from 'material-ui/Grid';
 
 // Helpers
 import numeral from 'numeral';
 import calcMiningReward from '../utils/math';
-import { HASH_RATE_MULTIPLIER } from '../config/constants';
+import { HASH_RATE_MULTIPLIER, SECONDS_PER_DAY } from '../config/constants';
 
 class Calculator extends React.PureComponent {
   static propTypes = {
@@ -38,6 +44,8 @@ class Calculator extends React.PureComponent {
     classes: PropTypes.shape({
       formControl: PropTypes.string.isRequired,
       formAdornment: PropTypes.string.isRequired,
+      calcLine: PropTypes.string.isRequired,
+      calcCell: PropTypes.string.isRequired,
     }).isRequired,
   };
 
@@ -62,7 +70,7 @@ class Calculator extends React.PureComponent {
     const dayReward = calcMiningReward(
       difficulty,
       hashRate * HASH_RATE_MULTIPLIER[hashUnit],
-      86400,
+      SECONDS_PER_DAY,
       blockReward,
       poolFee,
     );
@@ -164,29 +172,60 @@ class Calculator extends React.PureComponent {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={8}>
-          <Typography style={{ overflowWrap: 'break-word' }}>
-            hashpower: {hashRate * HASH_RATE_MULTIPLIER[hashUnit]} hash/s<br />
-            difficulty: {numeral(difficulty).format('0,0.000')} hash/s<br />
-            day: {numeral(dayReward).format('0.000000')} {tag}
-            <br />
-            7days: {numeral(dayReward * 7).format('0.000000')} {tag}
-            <br />
-            month: {numeral(dayReward * 30).format('0.000000')} {tag}
-            <br />
-            year: {numeral(dayReward * 365).format('0.000000')} {tag}
-            <br />
-          </Typography>
-          <br />
-          <Typography style={{ overflowWrap: 'break-word' }}>
-            day: {numeral(dayProfit).format('$0,0.00')}
-            <br />
-            7days: {numeral(dayProfit * 7).format('$0,0.00')}
-            <br />
-            month: {numeral(dayProfit * 30).format('$0,0.00')}
-            <br />
-            year: {numeral(dayProfit * 365).format('$0,0.00')}
-            <br />
-          </Typography>
+          <div className={classes.tableContainer}>
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Period</TableCell>
+                  <TableCell numeric>Profit ($)</TableCell>
+                  <TableCell numeric>Mined ({tag})</TableCell>
+                  <TableCell numeric>Power cost ($)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Per day</TableCell>
+                  <TableCell numeric>
+                    {numeral(dayProfit).format('$0,0.00')}
+                  </TableCell>
+                  <TableCell numeric>
+                    {numeral(dayReward).format('0.00000')}
+                  </TableCell>
+                  <TableCell numeric>{1}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Per week</TableCell>
+                  <TableCell numeric>
+                    {numeral(dayReward * 7).format('0.00000')}
+                  </TableCell>
+                  <TableCell numeric>
+                    {numeral(dayProfit * 7).format('$0,0.00')}
+                  </TableCell>
+                  <TableCell numeric>{1}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Per month</TableCell>
+                  <TableCell numeric>
+                    {numeral(dayReward * 30).format('0.00000')}
+                  </TableCell>
+                  <TableCell numeric>
+                    {numeral(dayProfit * 30).format('$0,0.00')}
+                  </TableCell>
+                  <TableCell numeric>{1}</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>Per year</TableCell>
+                  <TableCell numeric>
+                    {numeral(dayReward * 365).format('0.00000')}
+                  </TableCell>
+                  <TableCell numeric>
+                    {numeral(dayProfit * 365).format('$0,0.00')}
+                  </TableCell>
+                  <TableCell numeric>{1}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
         </Grid>
       </Grid>
     );
@@ -225,6 +264,10 @@ const styles = {
     '&:after': {
       height: 0,
     },
+  },
+  tableContainer: {
+    width: '100%',
+    overflowX: 'auto',
   },
 };
 
