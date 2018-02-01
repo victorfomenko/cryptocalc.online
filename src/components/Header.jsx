@@ -7,7 +7,7 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Grid from 'material-ui/Grid';
 
-const styles = theme => ({
+const styles = () => ({
   header: {
     width: '100%',
     overflow: 'hidden',
@@ -19,6 +19,9 @@ const styles = theme => ({
     textDecoration: 'none',
     color: 'inherit',
   },
+  toolbar: {
+    padding: 0,
+  },
 });
 
 function Header(props) {
@@ -27,7 +30,7 @@ function Header(props) {
     <AppBar position="static" color="primary" className={classes.header}>
       <Grid container>
         <Grid item xs={10} className={classes.container}>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <Typography type="title" color="inherit">
               <Link href="/">
                 <a className={classes.logo}>Crypto calc</a>
@@ -41,7 +44,7 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.oneOfType([PropTypes.object]).isRequired,
 };
 
 export default withStyles(styles)(Header);

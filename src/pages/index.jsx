@@ -43,14 +43,17 @@ class Index extends React.PureComponent {
             name="keywords"
             content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир"
           />
-          <meta name="description" content=" Расчет доходности майнинга сейчас, майнинг-калькулятор. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH" />
+          <meta
+            name="description"
+            content=" Расчет доходности майнинга сейчас, майнинг-калькулятор. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
+          />
         </Head>
         <Typography type="display1" gutterBottom>
           Майнинг-калькуляторы криптовалют
         </Typography>
         <TextField
           id="search"
-          label="Введите название крипто-валюты для поиска"
+          label="Название крипто-валюты"
           type="search"
           className={classes.search}
           margin="normal"
@@ -107,6 +110,9 @@ const styles = {
   search: {
     width: '520px',
     marginBottom: '30px',
+    '@media (max-width: 628px)': {
+      width: '240px',
+    },
   },
 };
 
