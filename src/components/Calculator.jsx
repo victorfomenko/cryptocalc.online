@@ -72,14 +72,15 @@ class Calculator extends React.PureComponent {
       blockReward,
       poolFee,
     );
-    const powerCostDay = power * 10 ** -3 * powerCost * 24;
-    const dayProfit = dayReward * price - powerCostDay;
+    const dayPowerCost = power * 10 ** -3 * powerCost * 24;
+    const dayProfit = dayReward * price - dayPowerCost;
+    const tableData = getTableData({ dayProfit, dayReward, dayPowerCost });
 
     return (
-      <Grid container>
+      <Grid container spacing={24} className={classes.root}>
         <Grid item xs={12} sm={4}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="price">Price</InputLabel>
+            <InputLabel htmlFor="price">Стоимость валюты</InputLabel>
             <Input
               id="price"
               value={price}
@@ -95,7 +96,7 @@ class Calculator extends React.PureComponent {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="hashingPower">Hashing power</InputLabel>
+            <InputLabel htmlFor="hashingPower">Hash-мощность</InputLabel>
             <Input
               id="hashingPower"
               defaultValue={hashRate}
@@ -121,7 +122,7 @@ class Calculator extends React.PureComponent {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="power">Power</InputLabel>
+            <InputLabel htmlFor="power">Мощность оборудования</InputLabel>
             <Input
               id="power"
               value={power}
@@ -137,7 +138,7 @@ class Calculator extends React.PureComponent {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="powerCost">Power cost</InputLabel>
+            <InputLabel htmlFor="powerCost">Тариф электричества</InputLabel>
             <Input
               id="powerCost"
               value={powerCost}
@@ -153,7 +154,7 @@ class Calculator extends React.PureComponent {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="poolFee">Pool fee</InputLabel>
+            <InputLabel htmlFor="poolFee">Комиссия пула</InputLabel>
             <Input
               id="poolFee"
               value={poolFee}
@@ -174,61 +175,33 @@ class Calculator extends React.PureComponent {
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell>Period</TableCell>
-                  <TableCell numeric>Profit ($)</TableCell>
-                  <TableCell numeric>Mined ({tag})</TableCell>
-                  <TableCell numeric>Power cost ($)</TableCell>
+                  <TableCell padding="none">Период</TableCell>
+                  <TableCell numeric padding="none">
+                    Прибыль ($)
+                  </TableCell>
+                  <TableCell numeric padding="none">
+                    Майнинг ({tag})
+                  </TableCell>
+                  <TableCell numeric padding="none">
+                    Расходы эл. ($)
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>Per day</TableCell>
-                  <TableCell numeric>
-                    {numeral(dayProfit).format('$0,0.00')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(dayReward).format('0.00000')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(powerCostDay).format('0.00')}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Per week</TableCell>
-                  <TableCell numeric>
-                    {numeral(dayReward * 7).format('0.00000')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(dayProfit * 7).format('$0,0.00')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(powerCostDay * 7).format('0.00')}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Per month</TableCell>
-                  <TableCell numeric>
-                    {numeral(dayReward * 30).format('0.00000')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(dayProfit * 30).format('$0,0.00')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(powerCostDay * 30).format('0.00')}
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Per year</TableCell>
-                  <TableCell numeric>
-                    {numeral(dayReward * 365).format('0.00000')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(dayProfit * 365).format('$0,0.00')}
-                  </TableCell>
-                  <TableCell numeric>
-                    {numeral(powerCostDay * 365).format('0.00')}
-                  </TableCell>
-                </TableRow>
+                {tableData.map(row => (
+                  <TableRow key={row.periodName}>
+                    <TableCell padding="none">{row.periodName}</TableCell>
+                    <TableCell numeric padding="none">
+                      {numeral(row.dayProfit).format('$0,0.00')}
+                    </TableCell>
+                    <TableCell numeric padding="none">
+                      {numeral(row.dayReward).format('0.00000')}
+                    </TableCell>
+                    <TableCell numeric padding="none">
+                      {numeral(row.dayPowerCost).format('0.00')}
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </div>
@@ -255,7 +228,37 @@ class Calculator extends React.PureComponent {
     this.props.onHashUnitChange(target.value);
 }
 
+const getTableData = ({ dayProfit, dayReward, dayPowerCost }) => [
+  {
+    periodName: 'День',
+    dayProfit,
+    dayReward,
+    dayPowerCost,
+  },
+  {
+    periodName: 'Неделя',
+    dayProfit: dayProfit * 7,
+    dayReward: dayReward * 7,
+    dayPowerCost: dayProfit * 7,
+  },
+  {
+    periodName: 'Месяц',
+    dayProfit: dayProfit * 30,
+    dayReward: dayReward * 30,
+    dayPowerCost: dayProfit * 30,
+  },
+  {
+    periodName: 'Год',
+    dayProfit: dayProfit * 365,
+    dayReward: dayReward * 365,
+    dayPowerCost: dayProfit * 365,
+  },
+];
+
 const styles = {
+  root: {
+    marginTop: '40px',
+  },
   formControl: {
     width: '100%',
     marginBottom: '20px',

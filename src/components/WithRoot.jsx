@@ -49,21 +49,32 @@ const styles = theme => ({
   main: {
     flex: 1,
     flexGrow: 1,
-    padding: '20px',
   },
   container: {
-    margin: '30px auto 50px auto',
+    margin: '50px auto 50px auto',
   },
 });
 
 let AppWrapper = props => (
+  // eslint-disable-next-line react/prop-types
   <div className={props.classes.root}>{props.children}</div>
 );
 let MainWrapper = props => (
+  // eslint-disable-next-line react/prop-types
   <main className={props.classes.main}>
     <Grid container>
-      <Grid item xs={10} className={props.classes.container}>
-        {props.children}
+      <Grid
+        item
+        xs={10}
+        className={
+          // eslint-disable-next-line react/prop-types
+          props.classes.container
+        }
+      >
+        {
+          // eslint-disable-next-line react/prop-types
+          props.children
+        }
       </Grid>
     </Grid>
   </main>
