@@ -239,19 +239,19 @@ const getTableData = ({ dayProfit, dayReward, dayPowerCost }) => [
     periodName: 'Неделя',
     dayProfit: dayProfit * 7,
     dayReward: dayReward * 7,
-    dayPowerCost: dayProfit * 7,
+    dayPowerCost: dayPowerCost * 7,
   },
   {
     periodName: 'Месяц',
     dayProfit: dayProfit * 30,
     dayReward: dayReward * 30,
-    dayPowerCost: dayProfit * 30,
+    dayPowerCost: dayPowerCost * 30,
   },
   {
     periodName: 'Год',
     dayProfit: dayProfit * 365,
     dayReward: dayReward * 365,
-    dayPowerCost: dayProfit * 365,
+    dayPowerCost: dayPowerCost * 365,
   },
 ];
 
