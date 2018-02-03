@@ -54,7 +54,7 @@ class BTG extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор BTG"
+          title="Калькулятор майнинга BTG"
           description="Калькулятор доходности майнинга BTG"
         >
           <Typography type="display1" gutterBottom>
