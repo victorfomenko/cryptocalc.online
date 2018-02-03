@@ -52,34 +52,32 @@ class BTG extends React.PureComponent {
     } = this.props;
 
     return (
-      <div>
-        <Layout
-          title="Калькулятор майнинга BTG"
-          description="Калькулятор доходности майнинга BTG"
-        >
-          <Typography type="display1" gutterBottom>
-            Калькулятор майнинга Bitcoin Gold (BTG)
-          </Typography>
-          {coin && (
-            <Calculator
-              tag={coin.tag}
-              price={coin.mid}
-              hashUnit={hashUnit}
-              difficulty={coin.difficulty24 * 2 ** 13}
-              blockReward={coin.block_reward}
-              hashRate={hashRate}
-              power={power}
-              powerCost={powerCost}
-              poolFee={poolFee}
-              onHashRateChange={this.handleHashRateChange}
-              onHashUnitChange={this.handleHashUnitChange}
-              onPowerChange={this.handlePowerChange}
-              onPowerCostChange={this.handlePowerCostChange}
-              onPoolFeeChange={this.handlePoolFeeChange}
-            />
-          )}
-        </Layout>
-      </div>
+      <Layout
+        title="Калькулятор майнинга BTG"
+        description="Калькулятор доходности майнинга BTG"
+      >
+        <Typography type="display1" gutterBottom>
+          Калькулятор майнинга Bitcoin Gold (BTG)
+        </Typography>
+        {coin && (
+          <Calculator
+            tag={coin.tag}
+            price={coin.mid}
+            hashUnit={hashUnit}
+            difficulty={coin.difficulty24 * 2 ** 13}
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            poolFee={poolFee}
+            onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+            onPoolFeeChange={this.handlePoolFeeChange}
+          />
+        )}
+      </Layout>
     );
   }
 

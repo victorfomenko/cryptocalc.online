@@ -47,7 +47,9 @@ const styles = theme => ({
   main: {
     flex: 1,
     flexGrow: 1,
-    overflowX: 'hidden',
+  },
+  gridWrapper: {
+    overflow: 'hidden',
   },
   container: {
     margin: '50px auto 50px auto',
@@ -98,11 +100,13 @@ class Layout extends React.PureComponent {
         </Head>
         <Header />
         <main className={classes.main}>
-          <Grid container>
-            <Grid item xs={10} className={classes.container}>
-              {children}
+          <div className={classes.gridWrapper}>
+            <Grid container>
+              <Grid item xs={10} className={classes.container}>
+                {children}
+              </Grid>
             </Grid>
-          </Grid>
+          </div>
         </main>
         <Footer />
       </div>

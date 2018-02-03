@@ -52,34 +52,32 @@ class ETH extends React.PureComponent {
     } = this.props;
 
     return (
-      <div>
-        <Layout
-          title="Калькулятор майнинга ETH"
-          description="Калькулятор доходности майнинга ETH"
-        >
-          <Typography type="display1" gutterBottom>
-            Калькулятор майнинга Etherium (ETH)
-          </Typography>
-          {coin && (
-            <Calculator
-              tag={coin.tag}
-              price={coin.mid}
-              hashUnit={hashUnit}
-              difficulty={coin.difficulty24}
-              blockReward={coin.block_reward}
-              hashRate={hashRate}
-              power={power}
-              powerCost={powerCost}
-              poolFee={poolFee}
-              onHashRateChange={this.handleHashRateChange}
-              onHashUnitChange={this.handleHashUnitChange}
-              onPowerChange={this.handlePowerChange}
-              onPowerCostChange={this.handlePowerCostChange}
-              onPoolFeeChange={this.handlePoolFeeChange}
-            />
-          )}
-        </Layout>
-      </div>
+      <Layout
+        title="Калькулятор майнинга ETH"
+        description="Калькулятор доходности майнинга ETH"
+      >
+        <Typography type="display1" gutterBottom>
+          Калькулятор майнинга Etherium (ETH)
+        </Typography>
+        {coin && (
+          <Calculator
+            tag={coin.tag}
+            price={coin.mid}
+            hashUnit={hashUnit}
+            difficulty={coin.difficulty24}
+            blockReward={coin.block_reward}
+            hashRate={hashRate}
+            power={power}
+            powerCost={powerCost}
+            poolFee={poolFee}
+            onHashRateChange={this.handleHashRateChange}
+            onHashUnitChange={this.handleHashUnitChange}
+            onPowerChange={this.handlePowerChange}
+            onPowerCostChange={this.handlePowerCostChange}
+            onPoolFeeChange={this.handlePoolFeeChange}
+          />
+        )}
+      </Layout>
     );
   }
 
