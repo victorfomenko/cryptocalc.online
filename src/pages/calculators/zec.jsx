@@ -54,7 +54,7 @@ class ZEC extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор ZEC"
+          title="Калькулятор майнинга ZEC"
           description="Калькулятор доходности майнинга ZEC"
         >
           <Typography type="display1" gutterBottom>
