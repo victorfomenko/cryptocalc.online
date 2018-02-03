@@ -45,7 +45,7 @@ class Index extends React.PureComponent {
           />
           <meta
             name="description"
-            content=" Расчет доходности майнинга сейчас, майнинг-калькулятор. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
+            content=" Расчет доходности майнинга в 2018, майнинг-калькулятор. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
           />
         </Head>
         <Typography type="display1" gutterBottom>
