@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
-import Head from 'next/head';
 
 // Components
 import Typography from 'material-ui/Typography';
+import Layout from '../../components/Layout';
 import Calculator from '../../components/Calculator';
 import withRoot from '../../components/WithRoot';
 import withUrlParams from '../../components/utils/withUrlParams';
@@ -53,33 +53,32 @@ class ETC extends React.PureComponent {
 
     return (
       <div>
-        <Head>
-          <meta
-            name="description"
-            content="Калькулятор доходности майнинга ETC"
-          />
-        </Head>
-        <Typography type="display1" gutterBottom>
-          Etherium Classic(ETC) майнинг-калькулятор
-        </Typography>
-        {coin && (
-          <Calculator
-            tag={coin.tag}
-            price={coin.mid}
-            hashUnit={hashUnit}
-            difficulty={coin.difficulty24}
-            blockReward={coin.block_reward}
-            hashRate={hashRate}
-            power={power}
-            powerCost={powerCost}
-            poolFee={poolFee}
-            onHashRateChange={this.handleHashRateChange}
-            onHashUnitChange={this.handleHashUnitChange}
-            onPowerChange={this.handlePowerChange}
-            onPowerCostChange={this.handlePowerCostChange}
-            onPoolFeeChange={this.handlePoolFeeChange}
-          />
-        )}
+        <Layout
+          title="Крипто калькулятор ETC"
+          description="Калькулятор доходности майнинга ETC"
+        >
+          <Typography type="display1" gutterBottom>
+            Etherium Classic(ETC) майнинг-калькулятор
+          </Typography>
+          {coin && (
+            <Calculator
+              tag={coin.tag}
+              price={coin.mid}
+              hashUnit={hashUnit}
+              difficulty={coin.difficulty24}
+              blockReward={coin.block_reward}
+              hashRate={hashRate}
+              power={power}
+              powerCost={powerCost}
+              poolFee={poolFee}
+              onHashRateChange={this.handleHashRateChange}
+              onHashUnitChange={this.handleHashUnitChange}
+              onPowerChange={this.handlePowerChange}
+              onPowerCostChange={this.handlePowerCostChange}
+              onPoolFeeChange={this.handlePoolFeeChange}
+            />
+          )}
+        </Layout>
       </div>
     );
   }

@@ -9,6 +9,7 @@ import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Card from '../components/Card';
+import Layout from '../components/Layout';
 import withRoot from '../components/WithRoot';
 
 // Helpers
@@ -37,7 +38,7 @@ class Index extends React.PureComponent {
     const { classes } = this.props;
     const { currencies } = this.state;
     return (
-      <div>
+      <Layout>
         <Head>
           <meta
             name="keywords"
@@ -76,7 +77,7 @@ class Index extends React.PureComponent {
             </Grid>
           ))}
         </Grid>
-      </div>
+      </Layout>
     );
   }
 

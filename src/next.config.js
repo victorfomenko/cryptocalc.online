@@ -6,7 +6,7 @@ module.exports = {
       // Rules
       config.module.rules = config.module.rules || [];
       config.module.rules.push({
-        test: /\.(js|jsx)$/,
+        test: /\.jsx$/,
         enforce: 'pre',
         exclude: /node_modules/,
         use: { loader: 'prettier-loader' },
