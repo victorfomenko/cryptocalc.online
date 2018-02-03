@@ -54,7 +54,7 @@ class LTC extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор LTC"
+          title="Калькулятор майнинга LTC"
           description="Калькулятор доходности майнинга LTC"
         >
           <Typography type="display1" gutterBottom>
