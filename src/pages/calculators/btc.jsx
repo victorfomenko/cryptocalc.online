@@ -54,7 +54,7 @@ class BTC extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор BTC"
+          title="Калькулятор майнинга BTC"
           description="Калькулятор доходности майнинга BTC"
         >
           <Typography type="display1" gutterBottom>
