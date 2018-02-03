@@ -58,7 +58,7 @@ class LTC extends React.PureComponent {
           description="Калькулятор доходности майнинга LTC"
         >
           <Typography type="display1" gutterBottom>
-            Litecoin(LTC) майнинг-калькулятор
+            Калькулятор майнинга Litecoin (LTC)
           </Typography>
           {coin && (
             <Calculator

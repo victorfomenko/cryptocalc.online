@@ -33,7 +33,7 @@ function Header(props) {
           <Toolbar className={classes.toolbar}>
             <Typography type="title" color="inherit">
               <Link href="/">
-                <a className={classes.logo}>Crypto calc</a>
+                <a className={classes.logo}>Crypto Calc</a>
               </Link>
             </Typography>
           </Toolbar>
