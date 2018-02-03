@@ -53,7 +53,7 @@ class BCH extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор BCH"
+          title="Калькулятор майнинга BCH"
           description="Калькулятор доходности майнинга BCH"
         >
           <Typography type="display1" gutterBottom>
