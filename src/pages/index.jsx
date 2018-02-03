@@ -42,11 +42,11 @@ class Index extends React.PureComponent {
         <Head>
           <meta
             name="keywords"
-            content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир"
+            content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, калькулятор, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир"
           />
           <meta
             name="description"
-            content=" Расчет доходности майнинга в 2018, майнинг-калькулятор. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
+            content=" Расчет доходности майнинга в 2018, калькулятор майнинга. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
           />
         </Head>
         <Typography type="display1" gutterBottom>
