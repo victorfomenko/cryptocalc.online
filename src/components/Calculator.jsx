@@ -122,7 +122,7 @@ class Calculator extends React.PureComponent {
             />
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="power">Мощность оборудования</InputLabel>
+            <InputLabel htmlFor="power">Потребление энергии</InputLabel>
             <Input
               id="power"
               value={power}
