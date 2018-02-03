@@ -54,7 +54,7 @@ class DASH extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор DASH"
+          title="Калькулятор майнинга DASH"
           description="Калькулятор доходности майнинга DASH"
         >
           <Typography type="display1" gutterBottom>
