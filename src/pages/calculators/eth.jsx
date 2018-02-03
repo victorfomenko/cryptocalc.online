@@ -54,7 +54,7 @@ class ETH extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор ETH"
+          title="Калькулятор майнинга ETH"
           description="Калькулятор доходности майнинга ETH"
         >
           <Typography type="display1" gutterBottom>
