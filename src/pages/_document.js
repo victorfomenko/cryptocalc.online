@@ -8,29 +8,7 @@ class MyDocument extends Document {
     return (
       <html lang="ru" dir="ltr">
         <Head>
-          <meta
-            name="viewport"
-            content={
-              'user-scalable=0, initial-scale=1, ' +
-              'minimum-scale=1, width=device-width, height=device-height'
-            }
-          />
-          <link rel="shortcut icon" href="/static/favicon.ico?v=1" />
-          <title>Crypto calculator</title>
-          <meta name="author" content="Victor Fomenko" />
           <link rel="stylesheet" href="/static/css/global.css" />
-          {/* Yandex.Metrika counter */}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter47486365 = new Ya.Metrika2({ id:47486365, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/tag.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks2");`,
-            }}
-          />
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<div><img src="https://mc.yandex.ru/watch/47486365" style="position:absolute; left:-9999px;" alt="" /></div>`,
-            }}
-          />
-          {/* Yandex.Metrika counter */}
         </Head>
         <body>
           <Main />
