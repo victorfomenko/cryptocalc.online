@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withRedux from 'next-redux-wrapper';
-import Head from 'next/head';
 import withStyles from 'material-ui/styles/withStyles';
 
 // Components
@@ -38,17 +37,11 @@ class Index extends React.PureComponent {
     const { classes } = this.props;
     const { currencies } = this.state;
     return (
-      <Layout>
-        <Head>
-          <meta
-            name="keywords"
-            content="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, калькулятор, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир"
-          />
-          <meta
-            name="description"
-            content=" Расчет доходности майнинга в 2018, калькулятор майнинга. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
-          />
-        </Head>
+      <Layout
+        title="Калькулятор майнинга «Crypto Calc»"
+        keywords="BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH, mining, crypto, calculate, currencies, rates, калькулятор, майнинг, рассчет, рассчёт, доходность, криптовалюты, курсы, биткоин, эфир"
+        description="Расчет доходности майнинга в 2018, калькулятор майнинга. Стоимость криптовалют: BTC, ETH, ZEC, DASH, BTG, ETC, LTC, BCH"
+      >
         <Typography type="display1" gutterBottom>
           Майнинг-калькуляторы криптовалют
         </Typography>

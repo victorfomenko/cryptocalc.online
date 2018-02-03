@@ -58,17 +58,19 @@ class Layout extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
+    keywords: PropTypes.string,
     classes: PropTypes.oneOfType([PropTypes.object]).isRequired,
     children: PropTypes.node.isRequired,
   };
 
   render() {
-    const { classes, children, title, description } = this.props;
+    const { classes, children, title, description, keywords } = this.props;
     return (
       <div className={classes.root}>
         <Head>
           <title>{title}</title>
-          <meta name="description" content={description} />
+          {description && <meta name="description" content={description} />}
+          {keywords && <meta name="keywords" content={keywords} />}
           <meta charSet="utf-8" />
           <meta
             name="viewport"
