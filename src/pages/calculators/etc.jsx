@@ -54,7 +54,7 @@ class ETC extends React.PureComponent {
     return (
       <div>
         <Layout
-          title="Крипто калькулятор ETC"
+          title="Калькулятор майнинга ETC"
           description="Калькулятор доходности майнинга ETC"
         >
           <Typography type="display1" gutterBottom>
