@@ -58,7 +58,7 @@ class ETH extends React.PureComponent {
           description="Калькулятор доходности майнинга ETH"
         >
           <Typography type="display1" gutterBottom>
-            Etherium(ETH) майнинг-калькулятор
+            Калькулятор майнинга Etherium (ETH)
           </Typography>
           {coin && (
             <Calculator

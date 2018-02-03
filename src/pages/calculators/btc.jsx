@@ -58,7 +58,7 @@ class BTC extends React.PureComponent {
           description="Калькулятор доходности майнинга BTC"
         >
           <Typography type="display1" gutterBottom>
-            Bitcoin(BTC) майнинг-калькулятор
+            Калькулятор майнинга Bitcoin (BTC)
           </Typography>
           {coin && (
             <Calculator

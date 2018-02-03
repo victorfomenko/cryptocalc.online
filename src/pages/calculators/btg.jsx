@@ -58,7 +58,7 @@ class BTG extends React.PureComponent {
           description="Калькулятор доходности майнинга BTG"
         >
           <Typography type="display1" gutterBottom>
-            Bitcoin Gold(BTG) майнинг-калькулятор
+            Калькулятор майнинга Bitcoin Gold (BTG)
           </Typography>
           {coin && (
             <Calculator

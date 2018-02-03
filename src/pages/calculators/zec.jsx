@@ -58,7 +58,7 @@ class ZEC extends React.PureComponent {
           description="Калькулятор доходности майнинга ZEC"
         >
           <Typography type="display1" gutterBottom>
-            Zcash(ZEC) майнинг-калькулятор
+            Калькулятор майнинга Zcash (ZEC)
           </Typography>
           {coin && (
             <Calculator

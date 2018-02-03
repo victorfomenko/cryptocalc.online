@@ -58,7 +58,7 @@ class DASH extends React.PureComponent {
           description="Калькулятор доходности майнинга DASH"
         >
           <Typography type="display1" gutterBottom>
-            Dash(DASH) майнинг-калькулятор
+            Калькулятор майнинга Dash (DASH)
           </Typography>
           {coin && (
             <Calculator

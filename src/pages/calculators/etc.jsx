@@ -58,7 +58,7 @@ class ETC extends React.PureComponent {
           description="Калькулятор доходности майнинга ETC"
         >
           <Typography type="display1" gutterBottom>
-            Etherium Classic(ETC) майнинг-калькулятор
+            Калькулятор майнинга Etherium Classic (ETC)
           </Typography>
           {coin && (
             <Calculator

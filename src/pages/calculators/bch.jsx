@@ -57,7 +57,7 @@ class BCH extends React.PureComponent {
           description="Калькулятор доходности майнинга BCH"
         >
           <Typography type="display1" gutterBottom>
-            Bitcoin Cash(BCH) майнинг-калькулятор
+            Калькулятор майнинга Bitcoin Cash (BCH)
           </Typography>
           {coin && (
             <Calculator
